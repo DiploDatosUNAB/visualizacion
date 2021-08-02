@@ -10,6 +10,17 @@ knitr::opts_chunk$set(echo = TRUE)
 
 En esta página publicamos los trabajos finales y visualizaciones realizadas por estudiantes de la [Diplomatura en análisis de datos aplicados al desarrollo de políticas públicas](https://www.unab.edu.ar/diplomatura-analisis-datos.html) De la Universidad Nacional Guillermo Brown. 
 
+La materia tiene los siguientes objetivos:
+
+* Aprender cómo comunicar con visualizaciones de datos.
+* Cómo compilar análisis y visualizaciones en informes y tableros.
+* Cómo hacer que los informes sean reproducibles.
+* Aprender cómo hacer estas visualizaciones programando en R y utilizando base de datos asociativas.
+* Cómo publicar informes en un sitio web o blog.
+
+#### Docentes a cargo
+
+[Yanina Bellini Saibene](https://yabellini.netlify.app/es/) y [Paola Corrales](https://paocorrales.github.io/).
 </br>
 </br>
 ![](logo-unab-2.png)
