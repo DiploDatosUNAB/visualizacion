@@ -1,0 +1,16 @@
+---
+title: "Sobre esta página"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+En esta página publicamos los trabajos finales y visualizaciones realizadas por estudiantes de la [Diplomatura en análisis de datos aplicados al desarrollo de políticas públicas](https://www.unab.edu.ar/diplomatura-analisis-datos.html) De la Universidad Nacional Guillermo Brown. 
+
+</br>
+</br>
+![](logo-unab-2.png)
+

@@ -1,0 +1,13 @@
+navbar:
+  title: Visualización de la información
+  left:
+  - text: Cohortes
+    menu:
+      - text: Cohorte 2020
+        href: cohorte2020.html
+      - text: Cohorte 2021
+        href: cohorte2021.html
+output_dir: docs
+output: 
+  html_document:
+    theme: flatly

@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Cohorte 2020</title>
+
+<script src="site_libs/jquery-3.5.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.18/datatables.js"></script>
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Visualización de la información</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Cohortes
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="cohorte2020.html">Cohorte 2020</a>
+    </li>
+    <li>
+      <a href="cohorte2021.html">Cohorte 2021</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Cohorte 2020</h1>
+
+</div>
+
+
+<div id="trabajos-finales" class="section level2">
+<h2>Trabajos finales</h2>
+<p>Trabajos finales utilizando Tableau o RMarkdown y ggplot2.</p>
+<div id="htmlwidget-9544aa257c44bc31c4ef" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9544aa257c44bc31c4ef">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10"],["Incendios en el Amazonas","Datos sobre Pokemon","Datos propios (laborales)","Datos propios (laborales)","Australia Fires","Empleo y Género","Datos propios (laborales)","Comercio Hispanoamérica-Mundo","Vacunas contra COVID-19. Dosis Aplicadas en la República Argentina","Datos propios (laborales)"],["<a href=https://tp-visualizacion.netlify.app/>https://tp-visualizacion.netlify.app/<\/a>","<a href=https://datospmk.netlify.app/>https://datospmk.netlify.app/<\/a>","<a href=https://public.tableau.com/views/Trabajo_Vis/SiniestralidadyTrnsito-Ao2020?:language=es&:display_count=y&publish=yes&:origin=viz_share_link>https://public.tableau.com/views/Trabajo_Vis/SiniestralidadyTrnsito-Ao2020?:language=es&:display_count=y&publish=yes&:origin=viz_share_link<\/a>","<a href=https://public.tableau.com/profile/gus7549#!/vizhome/DashboardEjemplo_15886855017500/Dashboard1?publish=yes>https://public.tableau.com/profile/gus7549#!/vizhome/DashboardEjemplo_15886855017500/Dashboard1?publish=yes<\/a>","<a href=https://mariceltpfinal.netlify.app/>https://mariceltpfinal.netlify.app/<\/a>","<a href=https://confident-ardinghelli-0ce418.netlify.app/>https://confident-ardinghelli-0ce418.netlify.app/<\/a>","<a href=https://tp-visualizacion-aibarra-2.netlify.app/>https://tp-visualizacion-aibarra-2.netlify.app/<\/a>","<a href=https://public.tableau.com/profile/nicolas6888#!/vizhome/TPFinal_16185317938040/Historia1?publish=yes>https://public.tableau.com/profile/nicolas6888#!/vizhome/TPFinal_16185317938040/Historia1?publish=yes<\/a>","<a href=https://tpfinalvisualizacionpedro.netlify.app/>https://tpfinalvisualizacionpedro.netlify.app/<\/a>","<a href=https://public.tableau.com/profile/fernando4071#!/vizhome/TPVISUALIZACION-UNaBTOTALPAIS/PORTADA1>https://public.tableau.com/profile/fernando4071#!/vizhome/TPVISUALIZACION-UNaBTOTALPAIS/PORTADA1<\/a>"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Base de datos seleccionada<\/th>\n      <th>Link al trabajo final<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"order":[],"autoWidth":false,"orderClasses":false,"columnDefs":[{"orderable":false,"targets":0}]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="concurso-el-gráfico-más-feo" class="section level2">
+<h2>Concurso el gráfico más feo</h2>
+<div id="adrian-ibarra" class="section level3">
+<h3>Adrian Ibarra</h3>
+<pre class="r"><code># base usada (emisiones_gei.csv)
+
+gei %&gt;%
+  ggplot(aes(x = anio, y = emisiones)) +
+  geom_ribbon(aes(ymin = emisiones - 1, ymax = emisiones + 1), fill = &quot;grey10&quot;) +
+  geom_line(aes(y = emisiones)) +
+  geom_point(aes(color = sector, shape = sector)) +
+  labs(x= &quot;Año&quot;, y = &quot;Megatoneladas de dióxido de carbono equivalente&quot;,
+       title = &quot;Grafico Feo&quot;,
+       subtitle = &quot;Elaborado por AdrianIbarra&quot;,
+       caption = &quot;parece un peine fino para piojos&quot;)</code></pre>
+<p><img src="plots_2020/adrian_ibarra_plot.png" /> <img src="plots_2020/adrian_ibarra_plot_sin_codigo.jpg" /></p>
+</div>
+<div id="brian-corvaro" class="section level3">
+<h3>Brian Corvaro</h3>
+<pre class="r"><code>library(&quot;tidyverse&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;patchwork&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;gapminder&quot;)
+library(&quot;scales&quot;)
+
+cuatro_cuatro = mutate(gapminder, gdpPercap_disc = ntile(gapminder$gdpPercap,5))
+
+ggplot(data = cuatro_cuatro, aes(x= gdpPercap_disc,  group=continent)) + 
+    geom_bar(aes(y = ..prop.., fill = factor(..x..)), stat=&quot;count&quot;) +
+  geom_line(aes(y = ..prop.., fill = factor(..x..)), stat=&quot;count&quot;) +
+  geom_text(aes( label = scales::percent(..prop..),
+                 y= ..prop.. ), stat= &quot;count&quot;, vjust = -.5) +
+  labs(x= &quot;PBI per Cap&quot;, y = &quot;Porcentaje&quot;, fill=&quot;QUINTILES&quot;) +
+  facet_grid(~continent) +
+  ggtitle(&quot;Más Feo no se consigue&quot;) +
+   scale_y_continuous(labels = scales::percent)</code></pre>
+<p><img src="plots_2020/brian_covaro_plot.jpg" /></p>
+</div>
+<div id="juan-pablo-zumárraga" class="section level3">
+<h3>Juan Pablo Zumárraga</h3>
+<pre class="r"><code>library(gapminder)
+library(ggplot2)
+library(tidyverse)
+library(datos)
+
+diamantes %&gt;%
+  ggplot(aes(quilate, precio)) +
+  geom_point(aes(color = corte, shape = corte)) +
+  geom_line(aes(color = corte))+
+   labs(x= &quot;Quilates&quot;, y = &quot;Precio&quot;, 
+        title = &quot;Comparación de diamantes&quot;,
+        subtitle = &quot;Fuente: paquete DATOS, dataset Diamantes&quot;,
+        caption = &quot;Nota: copiar y pegar, el mejor invento&quot;)+
+  theme_dark()+
+     theme(plot.subtitle = element_text(colour = &quot;blue&quot;, face = &quot;italic&quot;, size = 8, hjust = 0.5))</code></pre>
+<p><img src="plots_2020/zumarraga_juan_pablo_plot.jpg" /></p>
+</div>
+<div id="maricel-puntano" class="section level3">
+<h3>Maricel Puntano</h3>
+<pre class="r"><code>nom &lt;- datos::nombres
+nom %&gt;%
+  filter(anio==2000 &amp; sexo ==&quot;M&quot;) %&gt;%
+  select(nombre, prop)%&gt;%
+  top_n(5)%&gt;%
+  ggplot(aes(nombre, prop, color= nombre)) +
+  geom_col() +
+  labs(
+       x = &quot;Nombre&quot;,
+       y= &quot;Proporción&quot;,
+       title = &quot;Los 5 nombres de hombres más usados en el año 2000&quot;,
+       subtitle = &quot;Fuente: paquete DATOS, dataset nombres&quot;,
+       color = &quot;Nombre&quot;,
+       caption=&quot;Los datos provienen de Estado Unidos de Ámerica&quot;
+       ) +
+  theme_dark() +
+  theme(plot.caption = element_text(color = &quot;red&quot;), plot.title = element_text(size = 18, color = &quot;blue&quot;, face = &quot;bold&quot;), plot.subtitle = element_text(face = &quot;italic&quot;),
+        plot.background = element_rect(fill= &quot;yellow&quot;))</code></pre>
+<p><img src="plots_2020/maricel_puntano_plot.jpg" /></p>
+</div>
+<div id="nicolas-flores" class="section level3">
+<h3>Nicolas Flores</h3>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(datos)
+library(png)
+library(patchwork)
+library(ggthemr)
+
+img &lt;- readPNG(&quot;data/image.png&quot;,native = TRUE) #la imagen fue descargada y guardada previamente
+
+ggthemr(&#39;dust&#39;) #primero seteamos el theme
+
+ggplot(pinguinos, aes(sexo, fill= especie))+
+   geom_bar(alpha= 0.8)+
+   geom_text(aes(label = ..count..),stat = &quot;count&quot;,position = position_stack(0.5), colour = &quot;white&quot;)+
+   labs(x= &quot;Sexo&quot;, y = &quot;Cantidad&quot;, 
+        title = &quot;Cantidad de pinguinos por especie&quot;,
+        subtitle = &quot;Fuente: paquete DATOS, dataset Pingüinos&quot;,
+        fill= &quot;Especie&quot;,
+        caption = &quot;Nota: el diseño gráfico es mi pasión&quot;)+
+   theme_dark()+
+   theme(plot.title = element_text(colour = &quot;blue&quot;, face = &quot;bold&quot;, size = 25, hjust = 0.5))+
+   theme(plot.subtitle = element_text(colour = &quot;red&quot;, face = &quot;bold.italic&quot;, size = 15, hjust = 0.5))+
+   theme(panel.grid.major = element_line(color = &quot;yellow&quot;, size = 1, linetype = &quot;dashed&quot;))+
+   theme(panel.grid.minor = element_line(colour = &quot;yellow&quot;,linetype= &quot;longdash&quot;))+
+   theme(axis.title = element_text(colour = &quot;blue&quot;, face = &quot;bold&quot;))+
+   theme(axis.text.x = element_text(colour= &quot;red&quot;,face = &quot;bold&quot;, angle = 45, hjust = 1))+
+   theme(axis.text.y = element_text(colour= &quot;red&quot;,face = &quot;bold&quot;, angle = 45, hjust = 1))+
+   theme(legend.position = c(0.9, 0.8), legend.text = element_text(colour = &quot;red&quot;, face = &quot;bold.italic&quot;))+
+   theme(legend.title = element_text(colour = &quot;red&quot;, face = &quot;bold.italic&quot;))+
+   theme(plot.caption = element_text(colour = &quot;brown&quot;, size = 11, face = &quot;bold.italic&quot;, hjust = 0.01))+
+   inset_element (p= img, left = 0.92,
+                  bottom = 0.15,
+                  right = 0.7,
+                  top = 0.50)</code></pre>
+<p><img src="plots_2020/nicolas_flores_plot.jpg" /></p>
+</div>
+<div id="nicolas-lapido" class="section level3">
+<h3>Nicolas Lapido</h3>
+<pre class="r"><code>library(tidyverse)
+library(datos)
+library(here)
+library(dplyr)
+library(readr)
+library(readxl)
+
+estadios_caba &lt;- read_excel(&quot;datos/estadios_caba.xlsx&quot;)
+
+estadios_caba %&gt;% 
+  ggplot (aes(capacidad, fct_reorder(club, capacidad)))+
+  geom_col (aes(color = Division),
+            fill = &quot;chocolate4&quot;)+
+      theme_dark()+
+  theme(plot.title = element_text(size = 16, colour = &quot;white&quot;, face = &quot;bold&quot;), plot.subtitle = element_text(size = 12, colour = &quot;white&quot;, face = &quot;italic&quot;), plot.background = element_rect (fill = &quot;green&quot;))+
+  theme(legend.background = element_rect(fill = &quot;azure3&quot;))+
+      labs (
+    x = &quot;Cantidad de espectadores&quot;,
+    y = &quot;Clubes&quot;,
+    title = &quot;ESTADIOS DE CABA&quot;,
+    subtitle = &quot;Cantidad de espectadores en estadios de fútbol&quot;,
+    captions = &quot;Fuente: BAData&quot;,
+    color = &quot;Division&quot;
+    )</code></pre>
+<p><img src="plots_2020/nicolas_lapido_plot.jpg" /></p>
+</div>
+<div id="patricia-guevara" class="section level3">
+<h3>Patricia Guevara</h3>
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
+library(gapminder)
+data(&quot;gapminder&quot;)
+
+gapminder%&gt;%filter(gdpPercap&lt;70000 ) %&gt;% 
+  ggplot(aes( log(gdpPercap),lifeExp )) +
+  geom_point(alpha = 0.5,color=&quot;red&quot;)+
+  geom_smooth(method = loess)+
+  facet_wrap(~continent) + 
+  #theme(strip.background = element_rect(fill=&quot;#228b22&quot;),
+  theme(strip.background = element_rect(fill = &quot;#228b22&quot;, colour = &quot;#6D9EC1&quot;,
+  size = 2, linetype = &quot;solid&quot;),
+        strip.text = element_text(size=27, colour=&quot;purple&quot;)) +
+  theme(plot.background = element_rect(fill = &quot;yellow&quot;),
+        panel.grid.major = element_line(colour = &quot;grey50&quot; 
+                                  )
+        ) + 
+  ggtitle(&quot;Advertencia: Mirar directamente el gráfico puede producir dolor de cabeza&quot;)</code></pre>
+<p><img src="plots_2020/patricia_guevara_plot.jpg" /></p>
+</div>
+<div id="pedro-lynn" class="section level3">
+<h3>Pedro Lynn</h3>
+<pre class="r"><code>library (datos)
+library (tidyverse)
+library (png)
+library (ggpubr)
+img.file &lt;- &quot;imagenes/JFK_Airport_Logo.png&quot;
+img &lt;- png::readPNG(img.file)
+
+clima &lt;- datos::clima
+grafico_feo &lt;- clima  %&gt;%
+  filter(origen == &quot;JFK&quot; &amp; hora == 12 &amp; anio == max(anio) ) %&gt;%
+  mutate (fecha = as.Date(paste(anio, mes, dia, sep=&quot;-&quot;),&quot;%Y-%m-%d&quot;)) %&gt;%
+ 
+  ggplot (aes(y = temperatura, x = fecha))+
+  ggpubr::background_image(img)+
+  geom_rect(aes(xmin=as.Date(&quot;2013-01-01&quot;),xmax=as.Date(&quot;2013-12-31&quot;),ymin=0,ymax=50,fill=&quot;blue&quot;), alpha=0.01)+
+  geom_rect(aes(xmin=as.Date(&quot;2013-01-01&quot;),xmax=as.Date(&quot;2013-12-31&quot;),ymin=50,ymax=80,fill=&quot;green&quot;), alpha=0.01)+
+  geom_rect(aes(xmin=as.Date(&quot;2013-01-01&quot;),xmax=as.Date(&quot;2013-12-31&quot;),ymin=80,ymax=100,fill=&quot;red&quot;), alpha=0.01)+
+  geom_line(aes(size = 3))+
+  annotate(&quot;text&quot;, x=as.Date(c(&quot;2013-01-22&quot;)), y=85, label= &quot;CALOR&quot;, size = 10, colour = &quot;red&quot;)+
+  annotate(&quot;text&quot;, x=as.Date(c(&quot;2013-01-30&quot;)), y=55, label= &quot;TEMPLADO&quot;, size = 10, colour = &quot;white&quot;)+
+  annotate(&quot;text&quot;, x=as.Date(c(&quot;2013-01-22&quot;)), y=25, label= &quot;FRÍO&quot;, size = 10, colour = &quot;blue&quot;)+
+  labs(
+    x = &quot;fecha&quot;,
+    y = &quot;TEMPERATURA (°F)&quot;,
+    title = &quot;Temperatura diaria a las 12 horas&quot;,
+    subtitle = &quot;JFK Airport&quot;,
+    caption = &quot;En el JFK utilizamos Fahrenheit&quot;
+    )
+ 
+grafico_feo</code></pre>
+<p><img src="plots_2020/pedro_lynn_plot.jpg" /></p>
+</div>
+<div id="silvia-palacios" class="section level3">
+<h3>Silvia Palacios</h3>
+<pre class="r"><code># Cargamos la libreria ggplot2 para trabajar
+
+library(ggplot2)
+
+# Se utilizó datos de mpg.
+# Se presenta una comparación de los datos obtenidos en mpg, de la cilindrada del motor y el modelo de auto.
+
+ggplot( data = mpg, aes(displ, color=model) ) +
+  geom_density()+
+  labs(title = &quot;Grafico feo&quot;, subtitle = &quot;inentendible&quot;,
+       x = &quot;Cilindrada del motor&quot;, y =&quot;Densidad&quot; )</code></pre>
+<p><img src="plots_2020/silvia_palacions_plot.jpg" /></p>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
