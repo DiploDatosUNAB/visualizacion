@@ -8,17 +8,22 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-En esta página publicamos los trabajos finales y visualizaciones realizadas por estudiantes de la [Diplomatura en análisis de datos aplicados al desarrollo de políticas públicas](https://www.unab.edu.ar/diplomatura-analisis-datos.html) De la Universidad Nacional Guillermo Brown. 
+En esta página publicamos los trabajos finales y visualizaciones realizadas por estudiantes de la materia **Visualización de la Información** que forma parte del ciclo de formación en análisis de datos de la [Diplomatura en análisis de datos aplicados al desarrollo de políticas públicas](https://www.unab.edu.ar/diplomatura-analisis-datos.html) De la Universidad Nacional Guillermo Brown. 
 
-La materia tiene los siguientes objetivos:
+**Los contenidos generales de la materia son:**
 
-* Aprender cómo comunicar con visualizaciones de datos.
-* Cómo compilar análisis y visualizaciones en informes y tableros.
-* Cómo hacer que los informes sean reproducibles.
-* Aprender cómo hacer estas visualizaciones programando en R y utilizando base de datos asociativas.
-* Cómo publicar informes en un sitio web o blog.
+* Nociones básicas de visualización. Visualizar para explorar. Visualizar para comunicar.
+* Observaciones y variables. Seleccionando la visualización adecuada para mis datos.
+* Presentación de datos. Visualización de tablas. Visualización con gráficos.
+* Herramientas para el análisis y visualización de datos.
+* El uso del color.
+* Problemas derivados de la visualización de los datos.
+* Análisis crítico de los métodos de visualización.
+* Aplicaciones en R y Tableau.
 
-#### Docentes a cargo
+**Modalidad de cursada:** modalidad on-line con encuentros sincrónicos semanales de tres horas, clases asincrónicas e interacción en el campus de la diplomatura. La materia se aprueba con la participación activa en el foro analizando los casos de uso de visualización, la presentación de un gráfico (concurso del gráfico más feo) y un trabajo final con foco en las visualizaciones utilizadas.
+
+**Docentes a cargo:**
 
 [Yanina Bellini Saibene](https://yabellini.netlify.app/es/) y [Paola Corrales](https://paocorrales.github.io/).
 </br>
