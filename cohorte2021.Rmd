@@ -5,13 +5,36 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
 ```
 ## Trabajos finales
 
 Trabajos finales utilizando Tableau o RMarkdown y ggplot2. 
 
-### Proximamente!!
-
+```{r echo=FALSE}
+tribble(
+  ~base, ~link, ~autores,
+"Empleo y Género (Banco Mundial)", "https://data-viz-r.netlify.app/","Couto, Aramburu, Araujo",
+"Encuesta Permanente de Hogares", "https://ephybrechas.netlify.app/","Juan Videla y Juan Pablo Costa",
+"Encuesta Permanente de Hogares", "https://ingresos-genero-desigualdades.netlify.app/", "Nicole Moscovich",
+"Encuesta Nacional de Hogares", "https://trabajovisualizacion.netlify.app/","Marcela Almeida",
+"Exportaciones certificadas de soja SENASA", "https://vibrant-wozniak-6e07cd.netlify.app/", "Alexander Sothmann,Luciano Tincani, Sara Reidel, Pamela Sarco",
+"Programa Punto Digital", "https://public.tableau.com/app/profile/ana.clara.suiffet/viz/ResumenPuntosDigitales/ResumenPuntosDigitales?publish=yes", "Ana Clara Suiffet",
+"Monitor de vacunación COVID-19 en la ciudad de Corrientes", "https://public.tableau.com/views/Trabajopracticofinalvisualizacion/MonitordevacunacinporCovid-19enlaCiudaddeCorrientes?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link","Bianca Vallejos
+",
+"COVID-19 en CABA", "https://tp-visualizacion-lindenboim-lucena.netlify.app/","Erika D. Lucena, Irene L. Lindenboim",
+"COVID-19 - Chubut", "https://diplounab-chubut.netlify.app/","Federico Santoro",
+"Estimaciones Agrícolas del Ministerio de agricultura, ganadería y pesca","https://agitated-easley-c144bb.netlify.app/","Yanil Hepp",
+"Ecobicis Buenos Aires", "https://ecobicibuenosaires.netlify.app/","Marcelo Perazzo - Paula D’Alessandro",
+"Hablemos de Todo","https://public.tableau.com/app/profile/nicolas7443/viz/HDTNicolsNatali/Dashboard1?publish=yes","Nicolás Natali",
+"Contratos de alquiler del estado", "https://public.tableau.com/views/TPFINALVISUALIZACIONES/VISUALIZACIONES?:language=es-ES&publish=yes&:display_count=n&:origin=viz_share_link", "Noelia Andrada",
+"Vinos", "https://public.tableau.com/app/profile/edgardosandoval/viz/VinosSand/Dashboard1","Edgardo Sandoval"
+) %>% 
+  mutate(link = paste0("<a href=", link, ">", link, "</a>")) %>% 
+  DT::datatable(colnames = c("Base de datos seleccionada", "Link al trabajo final", "Autores/as"),
+                escape = FALSE)
+```
 ## Concurso el gráfico más feo
 
 
