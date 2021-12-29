@@ -35,6 +35,353 @@ tribble(
   DT::datatable(colnames = c("Base de datos seleccionada", "Link al trabajo final", "Autores/as"),
                 escape = FALSE)
 ```
-## Concurso el gráfico más feo
+## Concurso el gráfico más feo (por orden alfabético)
+
+### Agustín Osés
+
+```{r eval=FALSE}
+library(dplyr)
+library(ggplot2)
+library(readr)
+library(tidyverse)
+library(readxl)
+library(datos)
+library(png)
+library(patchwork)
+
+petroleo <- readPNG("datos/petroleo.png",native = TRUE)
+torres <- readPNG("datos/torres.png",native = TRUE)
+
+aviones_2 <- aviones %>% 
+  group_by(anio) %>% 
+  summarise(mean(asientos))
+  
+  colnames(aviones_2) <- c("anio", "promedio")
+
+ggplot(aviones_2, aes(x=anio, y=promedio)) +
+  theme_dark()+
+  theme(plot.title = element_text(size = 15, colour = "brown", face = "italic"), plot.subtitle = element_text(size = 12, colour = "yellow", face = "italic"), plot.background = element_rect (fill = "violet"), plot.caption = element_text(size=9, color = "green"))+
+  theme(panel.grid.major = element_line(color = "grey", size = 1, linetype = "dashed"))+
+  theme(axis.title = element_text(colour = "orange", face = "italic", size = 20))+
+  theme(axis.text.x = element_text(colour= "red", angle = 60,))+
+  theme(axis.text.y = element_text(colour= "red", angle = -45,))+
+  labs(x= "año", y = "asientos Promedio", title = "Cantidad Promedio de Asientos Por Avión Según Año de Fabricación", subtitle = "capacidad promedio de Aeronaves y su relación con hEchos históricos", caption = "fuente: paquete datos, DATASET Aviones, según registros de la FAA (Administración Federal de Aviación, EEUU") +
+  geom_rect(aes(xmin=1956,xmax=1973,ymin=-0,ymax=250), fill="Brown", alpha=1)+
+  geom_rect(aes(xmin=1973,xmax=2001,ymin=-0,ymax=250), fill="Yellow", alpha=1)+
+  geom_rect(aes(xmin=2001,xmax=2013,ymin=-0,ymax=250), fill="Green", alpha=1)+
+  geom_point(aes(size=promedio), colour="blue", shape=17)+
+  geom_vline(aes(xintercept=1973), colour=1, size=3)+
+  geom_vline(aes(xintercept=2001), colour=2, size=3)+
+  geom_smooth(size=3, colour ="Grey")+ 
+  inset_element (p= torres, left = 0.9, bottom = 0.15, right = 0.7, top = 0.50)+
+  inset_element (p= petroleo, left = 0.25, bottom = 0.65, right = 0.40, top = 1)
+
+```
+
+![](plots_2021/agustin_oses_plot.png)
 
 
+### Alexander Sothmann
+
+#### Gráfico enviado al concurso
+
+```{r eval=FALSE}
+library(tidyverse)
+paises <-datos::paises
+
+paises_filtrado <- filter(paises,anio>=2000 & anio<=2021)
+ggplot(paises, aes(x = poblacion, y = esperanza_de_vida))+  
+  geom_point(aes(size = pib_per_capita))+
+  scale_size_area(max_size = 15, guide = NULL) +
+  scale_x_log10()+
+  geom_smooth(method = "lm", se = FALSE, aes(color = anio))+
+   facet_wrap(~continente)+
+  labs(title = "Paises del mundo",
+       subtitle = "Año 2000 a 2021",
+       caption = "El tamaño de cada circulo representa el producto bruto interno por cada habitante.",
+       x = "poblacion",
+       y = "Life expectancy",
+       color = "")
+```
+
+![](plots_2021/Alexander_Sothmann_plot.png)
+
+#### Gráfico 3D extra
+
+```{r eval=FALSE}
+library(scatterplot3d)
+paises <-datos::paises
+
+x <- paises$poblacion
+y <- paises$esperanza_de_vida
+z <- paises$anio
+
+scatterplot3d(x, y, z, pch = 19, color = "blue")
+```
+
+![](plots_2021/Alexander_Sothmann_plot_extra.png)
+
+### Ana Clara Suiffet
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/juan_videla_plot.png)
+
+
+### Juan Videla
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/juan_videla_plot.png)
+
+
+### Manuel Emilio Lopez
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Manuel_Emilio_Lopez_plot.png)
+### Bianca Vallejos
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/bianca_ vallejos_plot.png)
+
+
+
+
+
+### Analia Savino
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Analia_Savino_plot.png)
+
+
+### Juan Pablo Costa
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Juan_Pablo_Costa_plot.png)
+
+### Mercedes Araujo
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Mercedes_Araujo_plot.png)
+
+### Erika Lucena
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Erika_Lucena_plot.png)
+
+### Facundo Monti
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Facundo_Monti_plot.png)
+
+### Federico Aramburu
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Federico_Aramburu_plot.png)
+### Federico Gonzalez
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Federico_ _Gonzalez_plot.png)
+
+
+### Federico Santoro
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Federico_Santoro_plot.png)
+
+### Hernan Costa
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Hernan_Costa_plot.png)
+
+### Irene Lindenboim
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Irene_Lindenboim_plot.png)
+
+### Julieta Couto
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Julieta_Couto_plot.png)
+
+### Luciano Tincani y Pamela Sarco
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Luciano_Pamela_plot.png)
+
+### Marcela Almeida
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Luciano_Pamela_plot.png)
+
+### Marcelo Perazzo
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/marcelo_pelazzo_plot.png)
+
+### Martina Pesce
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Martina_Pesce_plot.png)
+
+### Martin Saralegui
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Martin_Saralegui_plot.png)
+
+
+### Marcela Almeida 
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Marcela_Almeida_plot.png)
+
+### Mercedes Laurenza
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Mercedes_Laurenza_plot)
+
+### Nicolas Capria
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Nicolas_Capria_plot.png)
+
+### Nicolas Natali
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Nicolas_Natali_plot.png)
+
+### Nicole Moscovich
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Nicole_Moscovich_plot.png)
+
+
+### Noelia Andrada
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Noelia_Andrada_plot.png)
+
+### Paula DAlessandro
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Paula_DAlessandro_plot.png)
+
+### Samantha Vaccari
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Samantha_Vaccari_plot.png)
+
+### Sara Reidel
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Sara_Reidel_plot.png)
+
+
+### Walter Martinez
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Walter_Martinez_plot.png)
+
+### Yamila Albornoz
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Yamila_Albornoz_plot.png)
+
+### Yanil Hepp
+
+```{r eval=FALSE}
+
+```
+
+![](plots_2021/Yanil_Hepp_plot.png)
