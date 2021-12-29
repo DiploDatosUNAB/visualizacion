@@ -123,11 +123,34 @@ scatterplot3d(x, y, z, pch = 19, color = "blue")
 
 ### Ana Clara Suiffet
 
+
+```{r eval=FALSE}
+ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
+  geom_bar(stat="identity") +
+  scale_fill_manual(values=rainbow(24)) +  
+  geom_text(aes(label = paste0(round(percentage,1),"%")), 
+                  position = position_stack(vjust = 0,5)) +
+  coord_polar(theta= "y") +
+  theme_void()+
+  labs(
+    x = "Provincias Argentinas",
+    y = "Porcentaje de Puntos Digitales",
+    title="Porcentaje de Puntos Digitales por Provincias",
+    subtitle = "Intento n°99247892 con lo que Yani detesta: gráfico de torta en 3D o 45° y colorinche",
+    fill = "Porcentaje",
+    caption = "Fuente: mapa de Puntos Digitales https://mapa.puntodigital.gob.ar/")
+```
+
+![](plots_2021/Ana_Clara_Suiffet_plot1.png)
+![](plots_2021/Ana_Clara_Suiffet_plot2.png)
+
+### Analia Savino
+
 ```{r eval=FALSE}
 
 ```
 
-![](plots_2021/juan_videla_plot.png)
+![](plots_2021/Analia_Savino_plot.png)
 
 
 ### Juan Videla
@@ -158,13 +181,6 @@ scatterplot3d(x, y, z, pch = 19, color = "blue")
 
 
 
-### Analia Savino
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/Analia_Savino_plot.png)
 
 
 ### Juan Pablo Costa
