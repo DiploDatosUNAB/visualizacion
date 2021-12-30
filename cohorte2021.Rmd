@@ -35,7 +35,9 @@ tribble(
   DT::datatable(colnames = c("Base de datos seleccionada", "Link al trabajo final", "Autores/as"),
                 escape = FALSE)
 ```
+
 ## Concurso el gráfico más feo (por orden alfabético)
+
 
 ### Agustín Osés
 
@@ -81,7 +83,10 @@ ggplot(aviones_2, aes(x=anio, y=promedio)) +
 ![](plots_2021/agustin_oses_plot.png)
 
 
+
+
 ### Alexander Sothmann
+
 
 #### Gráfico enviado al concurso
 
@@ -106,6 +111,7 @@ ggplot(paises, aes(x = poblacion, y = esperanza_de_vida))+
 
 ![](plots_2021/Alexander_Sothmann_plot.png)
 
+
 #### Gráfico 3D extra
 
 ```{r eval=FALSE}
@@ -120,6 +126,8 @@ scatterplot3d(x, y, z, pch = 19, color = "blue")
 ```
 
 ![](plots_2021/Alexander_Sothmann_plot_extra.png)
+
+
 
 ### Ana Clara Suiffet
 
@@ -143,6 +151,8 @@ ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
 
 ![](plots_2021/Ana_Clara_Suiffet_plot1.png)
 ![](plots_2021/Ana_Clara_Suiffet_plot2.png)
+
+
 
 ### Analia Savino
 
@@ -169,6 +179,8 @@ ggplot(exp_bio_limpio) +
 
 ![](plots_2021/Analia_Savino_plot.png)
 
+
+
 ### Bianca Vallejos
 
 ```{r eval=FALSE}
@@ -192,6 +204,8 @@ ggsave("grafico_final.jpg", width = 7, height = 4)
 ```
 
 ![](plots_2021/bianca_vallejos_plot.png)
+
+
 
 ### Erika Lucena
 
@@ -227,6 +241,8 @@ grafico_feo
 
 ![](plots_2021/Erika_Lucena_plot.png)
 
+
+
 ### Facundo Monti
 
 ```{r eval=FALSE}
@@ -235,6 +251,8 @@ ggplot(empresas, aes(x = Categoria, y = Provincia)) +
 ```
 
 ![](plots_2021/Facundo_Monti_plot.png)
+
+
 
 ### Federico Aramburu
 
@@ -315,6 +333,8 @@ homero %>%
 ![](plots_2021/Federico_Aramburu_plot.png)
 
 
+
+
 ### Federico Gonzalez
 
 ```{r eval=FALSE}
@@ -341,6 +361,8 @@ ylab("Number of babies born")
 ```
 
 ![](plots_2021/Federico_Gonzalez_plot.png)
+
+
 
 
 ### Federico Santoro
@@ -377,6 +399,8 @@ prov %>%
 ![](plots_2021/Federico_Santoro_plot.png)
 
 
+
+
 ### Hernan Costa
 
 ```{r eval=FALSE}
@@ -391,6 +415,8 @@ ggplot(ind_4_20, aes(CODUSU, P47T, color = CH04)) +
 ```
 
 ![](plots_2021/Hernan_Costa_plot.png)
+
+
 
 
 ### Irene Lindenboim
@@ -422,6 +448,8 @@ enero_julio_programas %>%
 
 
 
+
+
 ### Juan Videla
 
 ```{r eval=FALSE}
@@ -447,6 +475,8 @@ ggplot(aviones2002, aes(fabricante))+
 ```
 
 ![](plots_2021/juan_videla_plot.png)
+
+
 
 
 
@@ -482,18 +512,205 @@ ggplot(diamantes)+
 ![](plots_2021/Juan_Pablo_Costa_plot.png)
 
 
+
+
+### Julieta Couto
+
+```{r eval=FALSE}
+library(ggplot2)
+library(datos)
+library(dplyr)
+
+ggplot(paises, aes(esperanza_de_vida, pib_per_capita)) +
+  geom_point( aes( color=continente), shape = 3, alpha = 0.2) + 
+    labs (
+    title = "esp_vida-pbi_per_cap-cont",
+       x="esp_vida",
+       color= "cont") +
+  scale_x_log10()+
+  scale_color_viridis_d(option = "G") +
+  theme_minimal()
+```
+
+![](plots_2021/Julieta_Couto_plot.jpg)
+
+
+
+
+### Luciano Tincani y Pamela Sarco
+
+```{r eval=FALSE}
+library(ggplot2)
+
+df = data.frame(Formacion = c("Soci?logo", "Economista", "Geografa", 
+                              "Relaciones Laborales", "Lic en Sistemas",
+                              "Licenciatura en Analisis de Sistemas",
+                              "Polit?logx","Administracion", 
+                              "Ingeniera en inform?tica", 
+                             "Analista de Sistemas","Edici?n Editorial", 
+                             "LIc. Administracion","Soci?logo"),#categorias
+                Proporcion = c( .05, .05, .05, .05, .05, .05, .05, .05, .05, .18, 
+                                .23, .05, .09))
+
+#
+ggplot(df, aes(x = "", y = Formacion, fill = Proporcion)) +
+  geom_col() +
+  coord_polar(theta = "y")
+
+ggplot(df, aes(x = "", y = Formacion, fill = Proporcion)) +
+  geom_col(color = "yellow") +
+  geom_label(aes(label = Formacion),
+             color = "red",
+             position = position_stack(vjust = 0.5),
+             show.legend = FALSE) +
+             coord_polar(theta = "y")
+             
+```
+
+![](plots_2021/Luciano_Pamela_plot.jpeg)
+
+
+
+
 ### Manuel Emilio Lopez
 
 ```{r eval=FALSE}
-
+gob_local %>%
+    ggplot(aes(prov,localidad))+
+    geom_point(aes(color= region, size = pob/100000, shape = genero), alpha = 0.5) +
+    labs(title = "Cantidad de localidades por Provincia",
+       subtitle = "Según región, población y género de su intendentx",
+       caption = "*La CABA está desagregada por Comunas",
+       x = "provincias",
+       y = "Localidades",
+       color = "Región",
+       size = "Población \npor 100.000 hab")+
+            theme_light() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1), axis.text.y=element_blank())+
+    scale_color_brewer(type = "qual", palette = "Dark2")+
+  scale_size_area(max_size=15)+
+  theme(legend.position = "bottom",plot.margin = unit(c(0, 0, 0, 0), "cm"),
+      panel.grid = element_line(linetype = 3))
 ```
 
 ![](plots_2021/Manuel_Emilio_Lopez_plot.png)
 
 
+#### Gráfico extra
+
+```{r eval=FALSE}
+gob_local %>%
+    group_by(prov,region)%>%
+    summarise(localidad=n(), pob=sum(pob,na.rm = TRUE))%>%
+   ungroup() %>% 
+  mutate(prov = fct_reorder(prov, desc(pob))) %>%
+  mutate(prov = fct_reorder(prov, region)) %>%
+    ggplot(aes(prov,localidad))+
+    geom_point(aes(color= region, size = pob/100000)) +
+    labs(title = "Cantidad de localidades por Provincia",
+       subtitle = "Según región y población",
+       caption = "El tamaño de cada punto representa la población total de cada provincia",
+       x = "",
+       y = "Localidades",
+       color = "Región",
+       size = "Población \npor 100.000 hab")+
+            theme_light() +
+    theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+    scale_color_brewer(type = "qual", palette = "Dark2")+
+  scale_size_area(max_size=15)
+```
+
+
+![](plots_2021/Manuel_Emilio_Lopez_plot2.png)
 
 
 
+
+### Marcela Almeida
+
+```{r eval=FALSE}
+Gastos__quintil_uno <- base_hogares %>%
+  filter(qinth_t==1)%>%
+    select(gc_01,gc_02, gc_03, gc_04, gc_05, gc_06, gc_07, gc_08, gc_09, gc_10, gc_11, gc_12,pondera, qinth_t)%>%
+  summarise(Alimentos=round( sum(gc_01*pondera)/sum(pondera),1),Tabaco= round( sum(gc_02*pondera)/sum(pondera),1),Ropa=round( sum(gc_03*pondera)/sum(pondera),1),Vivienda=round(sum(gc_04*pondera)/sum(pondera),1), Equipamiento=round(sum(gc_05*pondera)/sum(pondera),1), Salud=round( sum(gc_06*pondera)/sum(pondera),1), Transporte=round( sum(gc_07*pondera)/sum(pondera),1), Comunicacion=round( sum(gc_08*pondera)/sum(pondera),1), Recreacion=round( sum(gc_09*pondera)/sum(pondera),1), Educacion=round( sum(gc_10*pondera)/sum(pondera),1), Restaurantes=round( sum(gc_11*pondera)/sum(pondera),1), Otros=round( sum(gc_12*pondera)/sum(pondera),1))%>%
+  pivot_longer(cols=c(Alimentos, Tabaco,Ropa, Vivienda, Equipamiento, Salud, Transporte, Comunicacion, Recreacion, Educacion, Restaurantes, Otros ),names_to="Gasto", values_to="valor")
+
+
+
+Gastos_quintil_uno<-Gastos__quintil_uno%>%
+  mutate(porcentaje=(valor/11322.9)*100)
+
+Gastos_quintil_uno
+
+torta_fea<-ggplot(data=Gastos_quintil_uno, aes(x="", y=valor, fill=Gasto))+
+  geom_bar(stat="identity")+
+    labs(title="Estructura de gasto Quintil 1", caption="Siempre puede ser más feo")+
+  geom_text(aes(label=paste0(round(porcentaje,1),"%")),
+            position=position_stack(vjust=0.5))+
+  coord_polar("y")+
+    theme_void()
+  
+torta_fea
+
+```
+
+![](plots_2021/Marcela_Almeida_plot.png)
+
+
+#### Gráfico extra
+
+```{r}
+# Siempre puede ser más feo... pero no es ggplot
+
+pie3D(Gastos_quintil_uno$porcentaje)
+```
+
+
+![](plots_2021/Marcela_Almeida_plot2.png)
+
+
+
+
+### Marcelo Perazzo
+
+```{r eval=FALSE}
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+remotes::install_github("cienciadedatos/datos")
+pinguinos=datos::pinguinos
+
+pinguinos %>%
+    remove_missing() %>%
+    ggplot(aes(x = especie, y = masa_corporal_g
+          )) +
+    geom_boxplot(fill="#FF00FF", color="#FF00FF") +
+  
+  geom_jitter(fill="#33FF41",color="#33FF41") +
+   
+  
+  theme_classic()+
+  theme(panel.grid.major = element_line(color = "#FF00FF",linetype="dotted",size = 2),
+        plot.title = element_text(face = "bold.italic", size = 16,color = "#33FF41",hjust = 1,angle = -180),
+        plot.subtitle = element_text(face = "bold", size = 14,color = "#20E7DA",hjust = 1,angle = -180),
+        
+        axis.text = element_text(color = "#33FF41", angle = -180),
+        axis.title.x = element_text(color ="#20E7DA",angle = 50 ),
+        axis.title.y = element_text(color ="#33FF41",size = 7,angle = -70 ),
+        plot.background = element_rect(fill="orange",color =  "#7E20E7", size = 4,linetype = "twodash"),
+        
+    
+  )+
+    
+     labs(x = "Especies", 
+           y = "Masa Corporal (en g)",
+          title = "El Gráfico más feo",tag = "MP", 
+          subtitle = "Por lo menos lo intentamos!!",
+          caption = "Fuente: paquete Datos, dataset pinguinos"
+          )
+```
+
+![](plots_2021/marcelo_pelazzo_plot.png)
 
 
 
@@ -513,37 +730,9 @@ ggplot(diamantes)+
 
 
 
-### Julieta Couto
 
-```{r eval=FALSE}
 
-```
 
-![](plots_2021/Julieta_Couto_plot.png)
-
-### Luciano Tincani y Pamela Sarco
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/Luciano_Pamela_plot.png)
-
-### Marcela Almeida
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/Luciano_Pamela_plot.png)
-
-### Marcelo Perazzo
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/marcelo_pelazzo_plot.png)
 
 ### Martina Pesce
 
