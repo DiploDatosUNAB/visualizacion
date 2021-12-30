@@ -147,10 +147,85 @@ ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
 ### Analia Savino
 
 ```{r eval=FALSE}
+expo_biodiesel <- expo_biodiesel %>% 
+  mutate(fecha_corregida = dmy(fecha))
 
+expo_biodiesel <- expo_biodiesel %>% 
+  select(fecha_corregida, pais_destino, cantidad_ton, monto_fob) %>% 
+  mutate(ano = year(fecha_corregida))
+
+exp_bio_limpio <- expo_biodiesel %>% 
+  group_by(pais_destino) %>% 
+  summarise(cant_ton =sum(cantidad_ton), monto = sum(monto_fob)) %>% 
+  ungroup() %>% 
+  filter(cant_ton <=15000)
+
+ggplot(exp_bio_limpio) +
+  geom_col(aes(x= pais_destino, y= cant_ton, fill=monto))+
+  labs(title = "Paises a los que menos biodisel exporatmos",
+       x="Paises", 
+       y= "Toneladas")
 ```
 
 ![](plots_2021/Analia_Savino_plot.png)
+
+### Bianca Vallejos
+
+```{r eval=FALSE}
+# Fuente de datos: cotizaciones extraidas de Ambito (https://www.ambito.com/contenidos/merval-historico.html)
+
+grafico_1 <- ggplot(cotizacion, aes(fecha, precio_cierre, col = mes)) +
+  geom_line() +
+  geom_point() + 
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank(),
+        panel.background = element_rect(fill="light green"),
+        text=element_text(family="Comic Sans MS")) +
+  labs(title = "Cotizacion diaria del MERVAL", subtitle = "Año 2021")
+grafico_final <- ggdraw(grafico_1) + 
+  draw_image("https://i.pinimg.com/564x/44/a3/d1/44a3d17dea5ec11f27445fece8e137ba.jpg",
+             scale = .43, x = 1, hjust = 1, halign = 0.135, valign = 0.12)
+grafico_final
+
+ggsave("grafico_final.jpg", width = 7, height = 4)
+```
+
+![](plots_2021/bianca_vallejos_plot.png)
+### Erika Lucena
+
+```{r eval=FALSE}
+library(datos)
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(png)
+library(patchwork)
+
+precio_mediana<- diamantes %>% 
+  summarise(precio_mediana= median(precio))
+
+precio_max<- diamantes %>% 
+  summarise(precio_max= max(precio))
+
+
+grafico_feo <- diamantes %>% 
+  ggplot()+
+  geom_boxplot(aes(corte, precio, fill=corte))+
+  geom_line(aes(quilate, precio, color=corte))+
+  labs(title='¿El precio del corte "Ideal" puede ser menor al resto de los cortes?', subtitle="La mediana del precio para el corte de análisis es menor que en el resto de los cortes", caption= "Fuente:Base Diamantes de la librería Datos de R")+
+  geom_hline(data=precio_mediana, aes(yintercept = precio_mediana), color="yellow", linetype=2)+
+  geom_hline(data=precio_max, aes(yintercept = precio_max), color="yellow", linetype=2)+
+  theme(text= element_text(color="red", face="bold"), plot.background = element_rect (fill = "pink"), panel.grid.major.x= element_line(size=1, color="red", linetype = "3313"), panel.grid.major.y=element_line(size=1, color="red", linetype = "dotdash"),  legend.background= element_blank(), panel.background= element_rect(fill="green"))+
+  annotate('text', x = 4.5, y = precio_mediana$precio_mediana-500, label = "Mediana del Precio para todos los cortes", fontface = "bold", size=2, color="yellow")+
+  annotate('text', x = 4, y = precio_max$precio_max+500, label = "Precio Máximo", color="yellow", fontface = "bold", size=2)
+
+grafico_feo 
+
+```
+
+![](plots_2021/Erika_Lucena_plot.png)
+
 
 
 ### Juan Videla
@@ -169,14 +244,6 @@ ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
 ```
 
 ![](plots_2021/Manuel_Emilio_Lopez_plot.png)
-### Bianca Vallejos
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/bianca_ vallejos_plot.png)
-
 
 
 
@@ -199,13 +266,6 @@ ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
 
 ![](plots_2021/Mercedes_Araujo_plot.png)
 
-### Erika Lucena
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/Erika_Lucena_plot.png)
 
 ### Facundo Monti
 
