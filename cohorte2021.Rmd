@@ -714,22 +714,39 @@ pinguinos %>%
 
 
 
-### Mercedes Araujo
+### Martin Saralegui
 
 ```{r eval=FALSE}
+library(datos)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
 
+pinguinos <- datos::pinguinos
+
+ggplot(pinguinos, aes(largo_pico_mm, largo_aleta_mm))+
+  geom_point(aes (color= especie, size = masa_corporal_g))+
+  geom_text(aes(label = sexo, size= 1))+
+  geom_smooth(method = "loess", aes(color= especie))+
+  annotate('text', x = 45, y = 200, label = "Diome", fontface = "bold", size = 10)+
+  geom_curve(aes(x= 45, y= 200, xend= 50, yend = 220),
+             arrow = arrow(angle = 30, length = unit(0.25,"inch"),
+                           ends="first", 
+                           type= "closed"),
+             size = 1,
+             color = "yellow",
+             curvature = 0.2)+
+  geom_segment(aes(x= 45, y= 200, xend= 40, yend = 175),
+             arrow = arrow(angle = 30, length = unit(0.25,"inch"),
+                           ends="first", 
+                           type= "closed"),
+             size = 1,
+             color = "darkred",
+             curvature = 0.2)+
+  geom_density_2d(aes(color= especie), size = 1)
 ```
 
-![](plots_2021/Mercedes_Araujo_plot.png)
-
-
-
-
-
-
-
-
-
+![](plots_2021/Martin_Saralegui_plot.jpg)
 
 
 
@@ -737,18 +754,192 @@ pinguinos %>%
 ### Martina Pesce
 
 ```{r eval=FALSE}
+library(tidyverse)
+library(here)
+library(ggimage)
+library(ggplot2)
+library(ggrepel)
+pinguinos<-datos::pinguinos
+
+ggplot(pinguinos, aes(largo_pico_mm, masa_corporal_g)) + 
+  geom_point(aes(colour = isla, size = largo_aleta_mm)) +
+  geom_text_repel(aes(label=ifelse((masa_corporal_g >= 5000 |largo_pico_mm> 50), as.character(especie),'')), min.segment.length = 0, seed = 42, box.padding = 0.5)+
+  theme(legend.position = "none")+
+  theme_void()+
+  theme(plot.background = element_rect(fill = "green", colour = "lightblue"))+
+  theme(panel.border = element_rect(linetype = "dashed", fill = "NA"))+
+  theme(panel.grid.major = element_line(colour = "magenta"))+
+  theme(plot.title = element_text(color = "red"))+
+  labs(title="Gráfico Pinguinos)",
+        x ="largo del pico en mm", y = "masa corporal g")+
+geom_pokemon(aes(image= 'pikachu'), size=.1)
 
 ```
 
 ![](plots_2021/Martina_Pesce_plot.png)
 
-### Martin Saralegui
+
+
+
+### Mercedes Araujo
 
 ```{r eval=FALSE}
+# Base de datos de alquileres.
+
+unique(datos_alquileres$operation_type)
+Datos<-datos_alquileres %>%
+  filter(operation_type == "Alquiler" ) %>% 
+  filter(l2 == "Capital Federal") %>% 
+  filter(price < 100000 ) %>% 
+  filter(surface_total < 15000 ) %>% 
+  filter(surface_covered < 2000 ) %>% 
+  filter(start_date >= "2020-01-01" ) %>% 
+  filter(property_type=="Casa" | property_type=="PH" | property_type=="Departamento")
+
+
+ggplot(data = Datos) +
+ geom_point(aes(x = surface_covered, y = price),
+ alpha = .6, color="green", size=8) +
+ labs(x="Superficie cubierta", y = "Precio") +
+ geom_abline(aes(intercept = 9423.48,
+ slope = 245.24), color = "pink") +
+   facet_wrap(~property_type, scales="free_y")+
+  theme_dark()
 
 ```
 
-![](plots_2021/Martin_Saralegui_plot.png)
+![](plots_2021/Mercedes_Araujo_plot.png)
+
+
+
+### Mercedes Laurenza
+
+```{r eval=FALSE}
+library(dplyr)
+library(ggplot2)
+
+feo <- final_internados %>% 
+  group_by(region) %>% 
+  summarise(total = n())
+
+inmundus_palette <- c("yellow", "#8e4f89", "#4269a5","#39825a", "#dc6141", "#0078d7" )
+  
+feo <- feo %>% 
+  filter(!is.na(region)) %>% 
+  ggplot(aes(x=region, y=total, fill= as.factor(total))) + 
+  scale_fill_manual(values = inmundus_palette )+
+    geom_bar(width = 1 ,stat="identity")+
+  labs(fill= "Internados total", title= "Total de internados por región por COVID 19", subtitle="Rep. Argentina, marzo 2020- mayo 2021", caption = "Fuente: datos abiertos Ministerio de Salud de la Nación; N= 112097")+
+    guides(fill =  guide_legend(reverse = TRUE))
+   
+  feo + coord_polar() + 
+theme(axis.text.x=element_text(size = 15,angle = 80, colour = "red", face= "bold"))+
+                theme(title=element_text(size=15,face="bold"))
+
+ggsave('feo.png', width = 16, height = 9, dpi = 100)
+```
+
+![](plots_2021/Mercedes_Laurenza_plot.png)
+
+
+
+
+### Nicolas Capria
+
+```{r eval=FALSE}
+library(tidyverse)
+library(eph)
+
+base <- get_microdata(year = 2021, trimester = 1, type = "individual", vars = c('P21', 'ESTADO', 'CAT_OCUP', 'CH04', 'CH06', 'CH07', 'CH08', 'PP04B_COD', 'PP04D_COD', 'PONDERA','ANO4','PONDIIO')) 
+
+base_trabajo <- base %>% 
+  organize_labels()
+
+base_trabajo <- base_trabajo %>% 
+  organize_cno()
+
+base_trabajo <- base_trabajo %>% 
+  organize_caes()
+
+
+base_trabajo <- base_trabajo %>% 
+ rename(Genero = CH04, rama_de_actividad = caes_eph_label) %>% 
+ mutate(Genero = case_when(Genero=="1" ~ "Varones",
+                         Genero=="2" ~ "Mujeres"))
+
+formato_porc <- function(numero, dec = 1){
+  format(round(numero, digits = dec), nsmall = dec, decimal.mark = ",",)
+}
+formato_pesos <- function(numero, dec = 2){
+  paste0("$", format(round(numero, digits = dec), nsmall = dec, big.mark = ".", decimal.mark = ","))
+}
+formato_cantidad <- function(numero, dec = 0){
+  format(round(numero, digits = dec), nsmall = dec, big.mark = ".", decimal.mark = ",")
+}
+
+Tabla.6 <- base_trabajo %>%
+  filter(!is.na(rama_de_actividad)) %>% 
+  group_by(rama_de_actividad, Genero) %>% 
+  summarise(Percentage=n()) %>% 
+  group_by(rama_de_actividad) %>% 
+  mutate(Percentage=Percentage/sum(Percentage)*100)%>%
+  mutate_if(is.numeric, round) %>%  
+  filter(Genero == "Mujeres") 
+
+Tabla.9<-  base_trabajo %>% 
+  filter(ESTADO == 1) %>% 
+  group_by(rama_de_actividad, Genero) %>% 
+  summarise(ing_prom_rama = weighted.mean(P21, PONDIIO)) %>% 
+  pivot_wider(id_cols = 1, names_from = Genero, values_from = ing_prom_rama) %>%
+  mutate(brecha_por_rama = (Varones-Mujeres)/Varones *100) %>% 
+  arrange(brecha_por_rama)
+
+Tabla.10 <- Tabla.6 %>%  
+  left_join(Tabla.9, "rama_de_actividad") 
+
+Tabla.11 <- Tabla.10 %>% 
+  mutate(rama_de_actividad = case_when(rama_de_actividad == "Transporte, almacenamiento y comunicaciones" ~ "Transporte", 
+                                       rama_de_actividad == "Servicios financieros, de alquiler y empresariales"  ~ "Servicios financieros",
+                                      rama_de_actividad =="Administracion publica, defensa y seguridad social"  ~ "Sector público", 
+                                      rama_de_actividad == "Otros servicios comunitarios, sociales y personales" ~ "Otros servicios com.",
+                                      rama_de_actividad == "Actividades no bien especificadas" ~ "Act. no especificadas", TRUE ~ as.character(rama_de_actividad)))
+        
+Tabla.11<- Tabla.11 %>% 
+  rename(Sector = rama_de_actividad)
+
+ggplot(data = Tabla.11) + 
+  (aes(Percentage,  Mujeres)) +
+  geom_point(aes(color = Sector)) + geom_smooth (method="lm", col = "2") + geom_text(aes(label= Sector), size=3, alpha = 0.8 )+ scale_color_viridis_d(option = "A") +
+  labs(title = "Tasa de Feminidad vs Ingreso medio de las mujeres por sector",
+     subtitle = "31 Aglomerados urbanos EPH - 3er Trimestre 2020",
+     caption = "Fuente: Elaboración propia en base a EPH-INDEC",
+     x = "Tasa de Feminidad",
+     y = "Ingreso Medio de las Mujeres ") +
+  theme_bw(12)+
+  theme(legend.title = element_text(color = "blue", face = "bold"),
+    legend.text = element_text(family= "Trebuchet MS", color = "yellow", face = "bold"),
+    panel.background = element_rect(fill="yellow"),
+    panel.border = element_rect(size = 10, color = "darkorange"),
+    legend.background = element_rect(fill = "black"),
+    legend.box.background = element_rect(size = 3, color = "darkorange"),
+    plot.background=element_rect(fill="olivedrab", color="cyan", size = 6),
+    panel.grid = element_line(linetype = 1, size = 3, color = "purple"),
+    plot.title=element_text(color="white", size =15, family = "sans", face = "bold"),
+    plot.subtitle=element_text(color="red", size =12, family = "serif", face = "italic"),
+    plot.caption =  element_text(color="darkorange", size =12, family = "mono", face = "italic"),
+    axis.text.x= element_text( family= "serif", color = "brown", angle= 125, hjust= 1),
+    axis.text.y= element_text( family= "sans", color = "cyan3", angle= 20, hjust= 1)
+      )
+  
+```
+
+![](plots_2021/Nicolas_Capria_plot.png)
+
+
+
+
+
+
 
 
 ### Marcela Almeida 
@@ -759,21 +950,9 @@ pinguinos %>%
 
 ![](plots_2021/Marcela_Almeida_plot.png)
 
-### Mercedes Laurenza
 
-```{r eval=FALSE}
 
-```
 
-![](plots_2021/Mercedes_Laurenza_plot)
-
-### Nicolas Capria
-
-```{r eval=FALSE}
-
-```
-
-![](plots_2021/Nicolas_Capria_plot.png)
 
 ### Nicolas Natali
 
