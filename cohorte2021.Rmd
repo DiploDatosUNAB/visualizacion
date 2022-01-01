@@ -659,7 +659,7 @@ torta_fea
 
 #### Gráfico extra
 
-```{r}
+```{r eval=FALSE}
 # Siempre puede ser más feo... pero no es ggplot
 
 pie3D(Gastos_quintil_uno$porcentaje)
