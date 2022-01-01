@@ -36,9 +36,11 @@ tribble(
                 escape = FALSE)
 ```
 
+<br>
+
 ## Concurso el gráfico más feo (por orden alfabético)
 
-
+<br>
 ### Agustín Osés
 
 ```{r eval=FALSE}
@@ -84,7 +86,7 @@ ggplot(aviones_2, aes(x=anio, y=promedio)) +
 
 
 
-
+<br>
 ### Alexander Sothmann
 
 
@@ -128,7 +130,7 @@ scatterplot3d(x, y, z, pch = 19, color = "blue")
 ![](plots_2021/Alexander_Sothmann_plot_extra.png)
 
 
-
+<br>
 ### Ana Clara Suiffet
 
 
@@ -153,7 +155,7 @@ ggplot(provincia_porc, aes(x=1, y=percentage,fill=provincia)) +
 ![](plots_2021/Ana_Clara_Suiffet_plot2.png)
 
 
-
+<br>
 ### Analia Savino
 
 ```{r eval=FALSE}
@@ -180,7 +182,7 @@ ggplot(exp_bio_limpio) +
 ![](plots_2021/Analia_Savino_plot.png)
 
 
-
+<br>
 ### Bianca Vallejos
 
 ```{r eval=FALSE}
@@ -206,7 +208,7 @@ ggsave("grafico_final.jpg", width = 7, height = 4)
 ![](plots_2021/bianca_vallejos_plot.png)
 
 
-
+<br>
 ### Erika Lucena
 
 ```{r eval=FALSE}
@@ -242,7 +244,7 @@ grafico_feo
 ![](plots_2021/Erika_Lucena_plot.png)
 
 
-
+<br>
 ### Facundo Monti
 
 ```{r eval=FALSE}
@@ -253,7 +255,7 @@ ggplot(empresas, aes(x = Categoria, y = Provincia)) +
 ![](plots_2021/Facundo_Monti_plot.png)
 
 
-
+<br>
 ### Federico Aramburu
 
 ```{r eval=FALSE}
@@ -334,7 +336,7 @@ homero %>%
 
 
 
-
+<br>
 ### Federico Gonzalez
 
 ```{r eval=FALSE}
@@ -364,7 +366,7 @@ ylab("Number of babies born")
 
 
 
-
+<br>
 ### Federico Santoro
 
 ```{r eval=FALSE}
@@ -400,7 +402,7 @@ prov %>%
 
 
 
-
+<br>
 ### Hernan Costa
 
 ```{r eval=FALSE}
@@ -418,7 +420,7 @@ ggplot(ind_4_20, aes(CODUSU, P47T, color = CH04)) +
 
 
 
-
+<br>
 ### Irene Lindenboim
 
 ```{r eval=FALSE}
@@ -449,7 +451,7 @@ enero_julio_programas %>%
 
 
 
-
+<br>
 ### Juan Videla
 
 ```{r eval=FALSE}
@@ -479,7 +481,7 @@ ggplot(aviones2002, aes(fabricante))+
 
 
 
-
+<br>
 ### Juan Pablo Costa
 
 ```{r eval=FALSE}
@@ -513,7 +515,7 @@ ggplot(diamantes)+
 
 
 
-
+<br>
 ### Julieta Couto
 
 ```{r eval=FALSE}
@@ -536,7 +538,7 @@ ggplot(paises, aes(esperanza_de_vida, pib_per_capita)) +
 
 
 
-
+<br>
 ### Luciano Tincani y Pamela Sarco
 
 ```{r eval=FALSE}
@@ -571,7 +573,7 @@ ggplot(df, aes(x = "", y = Formacion, fill = Proporcion)) +
 
 
 
-
+<br>
 ### Manuel Emilio Lopez
 
 ```{r eval=FALSE}
@@ -625,7 +627,7 @@ gob_local %>%
 
 
 
-
+<br>
 ### Marcela Almeida
 
 ```{r eval=FALSE}
@@ -670,7 +672,7 @@ pie3D(Gastos_quintil_uno$porcentaje)
 
 
 
-
+<br>
 ### Marcelo Perazzo
 
 ```{r eval=FALSE}
@@ -713,7 +715,7 @@ pinguinos %>%
 ![](plots_2021/marcelo_pelazzo_plot.png)
 
 
-
+<br>
 ### Martin Saralegui
 
 ```{r eval=FALSE}
@@ -750,7 +752,7 @@ ggplot(pinguinos, aes(largo_pico_mm, largo_aleta_mm))+
 
 
 
-
+<br>
 ### Martina Pesce
 
 ```{r eval=FALSE}
@@ -780,7 +782,7 @@ geom_pokemon(aes(image= 'pikachu'), size=.1)
 
 
 
-
+<br>
 ### Mercedes Araujo
 
 ```{r eval=FALSE}
@@ -811,7 +813,7 @@ ggplot(data = Datos) +
 ![](plots_2021/Mercedes_Araujo_plot.png)
 
 
-
+<br>
 ### Mercedes Laurenza
 
 ```{r eval=FALSE}
@@ -843,7 +845,7 @@ ggsave('feo.png', width = 16, height = 9, dpi = 100)
 
 
 
-
+<br>
 ### Nicolas Capria
 
 ```{r eval=FALSE}
@@ -933,15 +935,25 @@ ggplot(data = Tabla.11) +
   
 ```
 
-![](plots_2021/Nicolas_Capria_plot.png)
+![](plots_2021/Nicolas_Capria_plot.jpg)
 
 
+<br>
+### Nicolas Natali
+
+```{r eval=FALSE}
+ggplot(paises,aes(poblacion,esperanza_de_vida))+
+  geom_line(aes(color = continente))+
+  scale_x_log10()+
+  scale_y_continuous(limits = c(0,140),
+                     breaks = seq(0,140, 13))+
+  theme_dark()
+```
+
+![](plots_2021/Nicolas_Natali_plot.JPG)
 
 
-
-
-
-
+<br>
 ### Marcela Almeida 
 
 ```{r eval=FALSE}
@@ -954,14 +966,9 @@ ggplot(data = Tabla.11) +
 
 
 
-### Nicolas Natali
 
-```{r eval=FALSE}
 
-```
-
-![](plots_2021/Nicolas_Natali_plot.png)
-
+<br>
 ### Nicole Moscovich
 
 ```{r eval=FALSE}
@@ -970,7 +977,7 @@ ggplot(data = Tabla.11) +
 
 ![](plots_2021/Nicole_Moscovich_plot.png)
 
-
+<br>
 ### Noelia Andrada
 
 ```{r eval=FALSE}
@@ -979,6 +986,7 @@ ggplot(data = Tabla.11) +
 
 ![](plots_2021/Noelia_Andrada_plot.png)
 
+<br>
 ### Paula DAlessandro
 
 ```{r eval=FALSE}
@@ -987,6 +995,7 @@ ggplot(data = Tabla.11) +
 
 ![](plots_2021/Paula_DAlessandro_plot.png)
 
+<br>
 ### Samantha Vaccari
 
 ```{r eval=FALSE}
@@ -994,7 +1003,7 @@ ggplot(data = Tabla.11) +
 ```
 
 ![](plots_2021/Samantha_Vaccari_plot.png)
-
+<br>
 ### Sara Reidel
 
 ```{r eval=FALSE}
@@ -1003,7 +1012,7 @@ ggplot(data = Tabla.11) +
 
 ![](plots_2021/Sara_Reidel_plot.png)
 
-
+<br>
 ### Walter Martinez
 
 ```{r eval=FALSE}
@@ -1011,7 +1020,7 @@ ggplot(data = Tabla.11) +
 ```
 
 ![](plots_2021/Walter_Martinez_plot.png)
-
+<br>
 ### Yamila Albornoz
 
 ```{r eval=FALSE}
@@ -1019,7 +1028,7 @@ ggplot(data = Tabla.11) +
 ```
 
 ![](plots_2021/Yamila_Albornoz_plot.png)
-
+<br>
 ### Yanil Hepp
 
 ```{r eval=FALSE}
