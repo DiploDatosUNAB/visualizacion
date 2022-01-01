@@ -1152,6 +1152,20 @@ ggplot(data=df, aes(x=noche, y=edificio)) +
 ### Yamila Albornoz
 
 ```{r eval=FALSE}
+library (dplyr)
+library(modeest)
+library(ggplot2)
+library(readr)
+
+ggplot(Vinitos, aes(x=1,y=PORCENTAJE, fill=PROVINCIA)) +
+  geom_bar(stat="identity") +
+  geom_text(aes(label = paste0(round(PORCENTAJE,1),"%")), 
+            position = position_stack(vjust = 0.5), color="white",size=3) +
+  coord_polar(theta = "x") + 
+  theme_void() +
+           labs(title = "Provincia vitivinícola más reseñas",
+            subtitle = "Fuente: paquete datos Vinos de Elio",
+             caption = "Una donuts dedicada a Yani")
 
 ```
 
@@ -1161,7 +1175,12 @@ ggplot(data=df, aes(x=noche, y=edificio)) +
 ### Yanil Hepp
 
 ```{r eval=FALSE}
+pinguinos <- datos::pinguinos
 
+ggplot(pinguinos , aes (x = masa_corporal_g)) + geom_bar(aes(fill = especie)) + 
+  geom_boxplot(aes(masa_corporal_g, isla, fill= especie))  +  theme_dark() + 
+  theme(panel.grid.major.y = element_line (color= "yellow")) +
+  theme(panel.grid.major.x = element_line (color= "red"))+ theme( legend.position = "bottom")
 ```
 
 ![](plots_2021/Yanil_Hepp_plot.png)
