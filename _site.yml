@@ -7,6 +7,8 @@ navbar:
         href: cohorte2020.html
       - text: Cohorte 2021
         href: cohorte2021.html
+      - text: Cohorte 2022
+        href: cohorte2022.html
 output_dir: docs
 output: 
   html_document:
