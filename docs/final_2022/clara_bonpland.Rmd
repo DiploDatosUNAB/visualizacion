@@ -1,0 +1,429 @@
+---
+title: "Trabajo Final de Visualización de la información"
+subtitle: "Análisis de Encuesta de uso de bicicletas públicas de la Municipalidad de Rosario. Año 2016"
+author: "Clara Bonpland Mignaquy"
+output:
+ html_document:
+   code_folding: hide
+   code_download: true
+   toc: true
+   theme: unite
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(readxl)
+library(gt)
+```
+
+# Introducción
+
+La base de datos con la cual se trabajará se trata de la Encuesta a usuarios del Sistema de Bicicletas Públicas (denominado “Mi Bici Tu Bici”) de la Municipalidad de Rosario, provincia de Santa Fe, realizada en 2016. El dataset proviene de <https://datosabiertos.rosario.gob.ar/dataset/encuesta-usuarios-del-sistema-de-bicicletas-p%C3%BAblicas>
+
+La Encuesta de uso de “Mi Bici Tu Bici” tiene por objetivo relevar el nivel de satisfacción de les usuaries en la implementación de la política pública y, para evaluar la posibilidad de modificaciones y/o mejoras de acuerdo a las opiniones de la ciudadanía. Actualmente, la red del sistema cuenta con 76 estaciones de bicicletas, 622 bicicletas y 196 kilómetros de ciclovías y bicisendas.
+
+La encuesta de 2016 es la primera y está enmarcada en la prueba piloto de la política pública. La misma se llevó a cabo a través de un formulario online, cuyas preguntas son de tipo respuesta abierta y de selección múltiple. 
+
+Carga de datos
+```{r}
+encuesta_2016 <- read_excel("datos/encuesta_2016.xlsx")
+
+```
+
+El dataset cuenta con 2560 observaciones y 26 variables. 
+
+
+# Exploración de datos
+```{r}
+base_limpia <- encuesta_2016 %>% 
+  rename(sexo = "1. Sexo",
+         edad = "2. Edad",
+         edad_numerico = "Edad2",
+         ocupacion = "3. Ocupación",
+         ocupacion_reca = "Ocupacion Reca",
+         funcionamiento_bicis = "4.1 El funcionamiento mecánico de las bicicletas (Confiabilidad de los frenos, maniobrabilidad, seguridad, espejos, luces)",
+         estado_bicis = "4.2 El estado de las bicicletas (Limpieza, estado de las ruedas, frenos y asientos)",
+         comodidad_bicis = "4.3 La comodidad de las bicicletas",
+         mantenimiento_bicis = "5. ¿Considera que el mantenimiento que reciben las bicicletas es suficiente?",
+         funcionamiento_estaciones = "6. ¿Cómo evalúa el funcionamiento general de las estaciones?",
+         evaluacion_sistema = "7. ¿Cómo evalúa la información general del SBP?",
+         evaluacion_bicis_uso = "8.1 De bicicletas al momento de su uso",
+         devolucion_bicis = "8.2 De lugar al momento de devolver la bicicleta",
+         evaluacion_30_minutos_de_uso ="9. ¿Considera que los 30 minutos de uso de la bicicleta son suficientes?",
+         evaluacion_ruido_mecanico = "1. Escuchar el ruido mecánico",
+         evluacion_historial_viajes_app = "2. Chequear el historial de viajes mediante la aplicación (APP)",
+         evaluacion_tarjeta_lector_totem = "3. Pasar la TSC con el lector del totem",
+         factores_de_uso = "11. ¿Qué factores lo motivan a usar el Sistema de Bicicletas Públicas MI BICI TU BICI?",
+         utilizacion_si_es_pago = "12. ¿Usted cree que utilizará el Sistema de Bicicletas Públicas cuando se implemente el pago del uso del mismo?",
+         transporte_reemplazado_por_bici = "13. ¿Qué modo de transporte utilizaba para realizar los viajes que hace actualmente en bicicleta?",
+         escala_utilidad_servicio = "14. En una escala de 0 a 10 ¿Cómo valora el grado de utilidad que tiene para usted este servicio?",
+         escala_satisfaccion_general = "15. En una escala de 0 a 10 ¿Cómo evalúa la satisfacción general del servicio?")
+         
+
+glimpse(base_limpia)
+
+```
+
+Exploración de género de personas encuestadas
+```{r}
+ggplot(base_limpia, aes(sexo)) + 
+  geom_bar(aes(fill = sexo), color = "black") +
+  labs(
+    title = "Total de personas encuestadas según género",
+    x = "Género",
+    y = "Cantidad",
+    fill = NULL,
+    caption = "Total: 2560 personas"
+  ) +
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, size = 4) +
+  theme_minimal() + 
+  theme(legend.position = "none") +
+  scale_x_discrete(labels = c("Femenino", "Masculino")) +
+  scale_y_continuous(limits = c(0, 1500)) + 
+  scale_fill_brewer(palette = "Set2") 
+```
+
+```{r}
+ggplot(base_limpia, aes(edad_numerico)) +
+  geom_bar(color = "black", fill = "#FFCA8C", width = 1.5) +
+  scale_x_continuous(limits = c(12,79)) + 
+  scale_y_continuous(limits = c(0, 150)) +
+  labs(
+    title = "Frecuencia de edad",
+    x = "Edad",
+    y = "Cantidad"
+  ) + 
+  theme_minimal() +
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, size = 2) 
+  
+```
+
+Exploración de edad según género
+```{r}
+edad_femenino <- base_limpia %>% 
+  filter(sexo == "1. Femenino") %>% 
+  summarise(min = min(edad_numerico, na.rm = TRUE),
+            max = max(edad_numerico, na.rm = TRUE),
+            promedio = mean(edad_numerico, na.rm = TRUE),
+            desv_est = sd(edad_numerico, na.rm = TRUE))
+
+edad_masculino <- base_limpia %>% 
+  filter(sexo == "2. Masculino") %>% 
+  summarise(min = min(edad_numerico, na.rm = TRUE),
+            max = max(edad_numerico, na.rm = TRUE),
+            promedio = mean(edad_numerico, na.rm = TRUE),
+            desv_est = sd(edad_numerico, na.rm = TRUE))
+
+edad_general <- base_limpia %>% 
+  summarise(min = min(edad_numerico, na.rm = TRUE),
+            max = max(edad_numerico, na.rm = TRUE),
+            promedio = mean(edad_numerico, na.rm = TRUE),
+            desv_est = sd(edad_numerico, na.rm = TRUE))
+            #cantidad_nas = sum(is.na(edad_numerico)))
+
+e1 <- rbind(edad_femenino, edad_masculino) 
+e2 <- rbind(e1, edad_general)
+
+e2%>%
+  mutate(Genero = c("Femenino","Masculino", "Total"), .before = min) %>% 
+  gt() %>%
+  tab_header(
+    title = md("**Medidas acerca de la edad de les encuestades**")
+  ) %>% 
+  fmt_number(
+    columns = c(promedio, desv_est),
+    decimals = 2)  %>% 
+  cols_label(
+    min = "Edad mínima",
+    max = "Edad máxima",
+    promedio = "Edad promedio",
+    desv_est = "Desviación Estándar"
+  ) %>% 
+  tab_options(
+    column_labels.border.bottom.color = "black",
+    heading.border.bottom.color = "black") 
+  
+```
+Evaluación de funcionamiento mecánico de bicicletas
+```{r}
+ggplot(base_limpia, aes(funcionamiento_bicis, fill = sexo)) +
+  geom_bar(color = "black", position = "dodge") +
+  labs(
+    title = "Evaluación del funcionamiento mecánico de las bicicletas según género",
+    x = "",
+    y = "Cantidad",
+    fill = "Género"
+  ) + 
+  theme_minimal() +
+  #geom_text(aes(label = ..count..), stat = "count", nudge_y = 3) +
+  scale_y_continuous(limits = c(0, 800)) +
+  scale_fill_brewer(palette = "Set2", labels = c("Femenino", "Masculino")) 
+
+```
+
+La encuesta de uso incluye la pregunta acerca de los factores que motivan a la utilización de la bicicleta pública. Para responder esta pregunta, se podía elegir entre 6 opciones, que veremos a continuación, y más de una por cada persona. Para analizar estas observaciones, separé las respuestas por factor 1, factor 2, sucesivamente hasta 6. 
+Para este caso de análisis, decidí centrarme en el principal factor de uso.
+
+Análisis de principal factor de uso
+```{r}
+factores <- base_limpia %>% 
+  separate(factores_de_uso, into = c("factor1", "factor2", "factor3", "factor4", "factor5", "factor6"),
+           sep = ",",
+           fill = "right",
+           remove = FALSE)
+
+factores %>% 
+  group_by(factor1, sexo) %>% 
+  summarise(cantidad =  n()) %>% 
+  arrange(desc(cantidad)) %>% 
+  ggplot(aes(factor1, cantidad)) +
+  geom_col(aes(fill = sexo),color = "black", position = "dodge") + 
+  labs(
+    title = "Principal factor de uso de la bicicleta pública según género",
+    x = "Factores", size = 0.5,
+    y = "Cantidad",
+    fill = "Género"
+  )  + 
+  theme_minimal() +
+  scale_x_discrete(labels = c("Ahorro 
+  de tiempo", "Ahorro 
+  de dinero", "Salud", "Protección del
+medio ambiente", "Comodidad", "Otro")) +
+  scale_fill_brewer(palette = "Set2", labels = c("Femenino", "Masculino")) 
+
+```
+
+Evaluación de utilización de servicio pago
+
+El sistema de bicicletas públicas fue puesto en marcha el 1 de diciembre de 2015, de plena gratuidad los primeros meses, y a partir del 01/04/2016, de acuerdo a la Ordenanza de creación, se establecieron las tarifas para el cobro del servicio.
+
+La encuesta arroja la respuesta acerca de la utilización del sistema pago.
+```{r}
+base_limpia %>% 
+  group_by(utilizacion_si_es_pago, sexo) %>% 
+  summarise(cantidad = n()) %>% 
+  ggplot(aes(utilizacion_si_es_pago, cantidad)) + 
+  geom_col(aes(fill = sexo), position = "dodge", color = "black") + 
+  labs(
+    title = "¿Usted cree que utilizará el Sistema de Bicicletas si es pago?",
+    x = NULL,
+    y = "Cantidad",
+    fill = "Género"
+    ) + 
+  theme_minimal() +
+  scale_x_discrete(labels = c("Sí", "No", "Ns/Nc")) +
+  scale_fill_brewer(palette = "Set2", labels = c("Femenino", "Masculino")) 
+```
+
+Evaluación de 30 minutos de gratuidad: esta modalidad se mantiene vigente al día de la fecha.
+```{r}
+ggplot(base_limpia, aes(evaluacion_30_minutos_de_uso)) +
+  geom_bar(aes(fill = sexo), position = "dodge", color = "black") +
+  labs(
+    title = "¿Considera que los 30 minutos de uso de la bicicleta es suficiente?",
+    x = NULL,
+    y = "Cantidad",
+    fill = "Género"
+  ) +
+  scale_fill_brewer(palette = "Set2", labels = c("Sí", "No", "Ns/Nc")) +
+  scale_y_continuous(limits = c(0, 2000)) +
+  theme_minimal() +
+          scale_x_discrete(labels = c("Sí", "No", "Ns/Nc")) +
+          scale_fill_brewer(palette = "Set2") 
+```
+
+Evaluación de funcionamiento de bicicletas vs mantenimiento
+```{r}
+base_limpia %>% 
+  group_by(funcionamiento_bicis, mantenimiento_bicis) %>% 
+  summarise(cantidad = n()) %>% 
+  ggplot(aes(funcionamiento_bicis, cantidad)) +
+  geom_col(aes(fill = mantenimiento_bicis), color = "black", position = "dodge") +
+  labs(
+    title = "Evaluación de funcionamiento de bicicletas vs mantenimiento",
+    subtitle = "¿Considera que el mantenimiento que reciben las bicicletas es suficiente?",
+    x = "Funcionamiento mecánico de las bicicletas",
+    y = "Cantidad",
+    fill = "¿Considera que el mantenimiento que 
+    reciben las bicicletas es suficiente?"
+  ) +
+  scale_fill_brewer(palette = "Set2", labels = c("Sí", "No", "Ns/Nc")) +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 9),
+        plot.subtitle = element_text(size = 8),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 5),
+        legend.position = c(.8, .8),
+        legend.background = element_rect(color = NULL)
+        )
+```
+
+
+
+Separación de respuestas de evaluación de transporte reemplazado por la bicicleta y análisis de principal transporte reemplazado
+
+
+La encuesta incluye la pregunta acerca del transporte reemplazado por el uso de la bicileta pública.   Para responder esta pregunta, se podía elegir entre 6 opciones, que veremos a continuación, y más de una por cada persona. Para analizar estas observaciones, separé las respuestas por factor 1, factor 2, sucesivamente hasta 6. 
+Para este caso de análisis, decidí centrarme en el principal factor de uso.
+
+Análisis del principal transporte reemplazado por la bicicleta
+```{r}
+transportes <- factores %>% 
+  separate(transporte_reemplazado_por_bici, into = c("factor_1", "factor_2", "factor_3", "factor_4", "factor_5", "factor_6"),
+           sep = ",",
+           fill = "right",
+           remove = FALSE) 
+
+transportes %>% 
+  group_by(factor_1) %>% 
+  filter(factor_1 != "4. Taxi/Remis") %>% 
+  summarise(cantidad = n()) %>% 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>% 
+  arrange(desc(proporcion)) %>% 
+  gt() %>%
+  fmt_number(
+    columns = c(proporcion),
+    decimals = 1,
+    dec_mark = ",",
+    sep_mark = "."
+  ) %>% 
+  cols_label(
+    factor_1 = "Transporte reemplazado por bicicleta",
+    cantidad = "Cantidad",
+    proporcion = "Proporción %") 
+```
+
+De la tabla anterior, se desprende que el principal transporte reemplazado por la bicicleta es el colectivo en un 77,9%, a pie en un 8,8%, el auto como conductor en un 7,0%. 
+
+
+Escala de satisfacción general del servicio
+```{r}
+ggplot(base_limpia, aes(escala_satisfaccion_general)) + 
+  geom_bar(aes(fill = sexo), color = "black", position = "dodge") +
+  labs(
+    title = "Escala de satisfacción general del servicio", size = 8, 
+    x = "Puntaje",
+    y = "Cantidad",
+    fill = "Género" 
+    ) +
+      scale_y_continuous(limits = c(0, 600)) +
+  scale_x_continuous(limits = c(0,10),
+                     breaks = c(0, 2, 4, 6, 8, 10)) +
+      scale_fill_brewer(palette = "Set2", labels = c("Femenino", "Masculino")) +
+  theme_minimal() 
+
+
+```
+
+
+Escala de utilidad del servicio
+```{r}
+
+prom_utilidad <- base_limpia %>% 
+  summarise(promedio_utilidad = mean(escala_utilidad_servicio, na.rm = TRUE)) %>%
+  round(digits = 1)
+
+ggplot(base_limpia, aes(escala_utilidad_servicio)) + 
+  geom_bar(aes(fill = sexo),color = "black", position = "dodge") +
+  labs(
+    title = "Escala de valoración de utilidad del servicio", size = 8, 
+    x = "Puntaje",
+    y = "Cantidad",
+    fill = "Género" 
+    ) +
+      scale_y_continuous(limits = c(0, 600)) +
+  scale_x_continuous(limits = c(0,10),
+                     breaks = c(0, 2, 4, 6, 8, 10)) +
+      scale_fill_brewer(palette = "Set2", labels = c("Femenino", "Masculino")) +
+  theme_minimal() 
+
+```
+
+
+
+# Hipótesis
+
+1. ¿Qué relación tiene la elección del principal factor de uso de la bicicleta con el transporte reemplazado?
+
+```{r}
+transportes %>% 
+  group_by(factor1, factor_1) %>%
+  filter(factor_1 != "4. Taxi/Remis") %>% 
+  summarise(cantidad = n()) %>% 
+  arrange(desc(cantidad)) %>% 
+  ggplot(aes(factor1, cantidad)) +
+  geom_col(aes(fill = factor_1), color = "black", position = "dodge") +
+  labs(
+    title = "Principal factor de uso de la bicicleta en relación a transporte reemplazado",
+    x = "Factor",
+    y = "Cantidad",
+    fill = "Transporte"
+  ) + 
+  scale_y_continuous(limits = c(0,1500)) +
+  scale_x_discrete(labels = c("Ahorro 
+  de tiempo", "Ahorro 
+  de dinero", "Salud", "Protección del
+  medio ambiente", "Comodidad", "Otro"))  + 
+  scale_fill_brewer(palette = "Set2", labels =  c("Colectivo", "Auto como conductor", "Auto como acompañante", "Taxi/Remis", "Moto/Ciclomotor", "A pie", "Otro", "Ninguno de los anteriores (Es un viaje que antes no hacía)")) +
+  theme_minimal() + 
+  theme(legend.title = element_text(size = 7),
+        legend.text = element_text(size = 5),
+        legend.position = c(.8, .6),
+        legend.background = element_rect(color = NULL))
+
+
+```
+
+Ante la pregunta que motivó este análisis y que tiene que ver con la elección de uso de las bicicletas públicas frente a otros transportes, del gráfico anterior podemos concluir que la motivación principal no es económica ni tiene que ver necesariamente con la salud, si no que se debe al ahorro de tiempo de transporte.
+
+
+2. Con la implementación del pago del sistema, ¿les usuaries seguirían prefiriéndolo de acuerdo al principal factor de uso que es el ahorro de tiempo?
+
+```{r}
+transportes %>% 
+  group_by(utilizacion_si_es_pago, factor1, factor_1) %>% 
+  summarise(cantidad = n()) %>% 
+  arrange(desc(cantidad)) %>% 
+  ggplot(aes(utilizacion_si_es_pago, cantidad)) + 
+  geom_col(aes(fill = factor1))  +
+  labs(
+    title = "Implementación del sistema pago vs. Principal factor de uso del sistema",
+    x = NULL,
+    y = "Cantidad",
+    fill = "Principal factor de uso"
+      )  +
+  theme_minimal() +
+  theme(plot.title = element_text(size = 12),
+        legend.position = "bottom",
+        legend.title = element_text(size = 7),
+        legend.text = element_text(size = 5),
+        legend.background = element_rect(color = NULL)) +
+  scale_fill_brewer(palette = "Set2") + 
+  scale_x_discrete(labels = c("Sí", "No", "Ns/Nc"))
+```
+
+3. ¿Cómo resultó la prueba piloto de "Mi Bici Tu Bici"?
+De acuerdo a las escalas de puntuación de la utilidad y la satisfacción general del sistema de bicicletas públicas(que incluye la totalidad como son la comodidad de las bicicletas, el funcionamiento de las estaciones, el lector de tarjeta y la app, entre otras), hay una buena aceptación de la política pública desarrollada por la Municipalidad de Rosario.
+
+
+```{r}
+base_limpia %>% 
+  summarise(promedio_utilidad = mean(escala_utilidad_servicio),
+            promedio_satisfaccion = mean(escala_satisfaccion_general)) %>% 
+  round(digits = 2) %>% 
+  gt() %>% 
+  tab_header(
+    title = md("**Promedio de Evaluación del sistema**")
+  ) %>% 
+  cols_label(
+    promedio_utilidad = "Utilidad del Servicio",
+    promedio_satisfaccion = "Satisfacción General del Servicio") %>% 
+  tab_options(
+    table.border.top.color = "black",
+    table.border.bottom.color = "black",
+    column_labels.border.top.color = "black",
+    heading.border.bottom.color = "black"
+    ) 
+```
+

@@ -13,7 +13,8 @@
 
 <title>Sobre esta página</title>
 
-<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -59,6 +60,7 @@ if (window.hljs) {
 
 
 
+
 <style type = "text/css">
 .main-container {
   max-width: 940px;
@@ -79,6 +81,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -231,7 +236,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -241,7 +246,7 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Cohortes
      
     <span class="caret"></span>
@@ -252,6 +257,9 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="cohorte2021.html">Cohorte 2021</a>
+    </li>
+    <li>
+      <a href="cohorte2022.html">Cohorte 2022</a>
     </li>
   </ul>
 </li>
@@ -272,21 +280,37 @@ $(document).ready(function () {
 </div>
 
 
-<p>En esta página publicamos los trabajos finales y visualizaciones realizadas por estudiantes de la materia <strong>Visualización de la Información</strong> que forma parte del ciclo de formación en análisis de datos de la <a href="https://www.unab.edu.ar/diplomatura-analisis-datos.html">Diplomatura en análisis de datos aplicados al desarrollo de políticas públicas</a> De la Universidad Nacional Guillermo Brown.</p>
+<p>En esta página publicamos los trabajos finales y visualizaciones
+realizadas por estudiantes de la materia <strong>Visualización de la
+Información</strong> que forma parte del ciclo de formación en análisis
+de datos de la <a
+href="https://www.unab.edu.ar/diplomatura-analisis-datos.html">Diplomatura
+en análisis de datos aplicados al desarrollo de políticas públicas</a>
+De la Universidad Nacional Guillermo Brown.</p>
 <p><strong>Los contenidos generales de la materia son:</strong></p>
 <ul>
-<li>Nociones básicas de visualización. Visualizar para explorar. Visualizar para comunicar.</li>
-<li>Observaciones y variables. Seleccionando la visualización adecuada para mis datos.</li>
-<li>Presentación de datos. Visualización de tablas. Visualización con gráficos.</li>
+<li>Nociones básicas de visualización. Visualizar para explorar.
+Visualizar para comunicar.</li>
+<li>Observaciones y variables. Seleccionando la visualización adecuada
+para mis datos.</li>
+<li>Presentación de datos. Visualización de tablas. Visualización con
+gráficos.</li>
 <li>Herramientas para el análisis y visualización de datos.</li>
 <li>El uso del color.</li>
 <li>Problemas derivados de la visualización de los datos.</li>
 <li>Análisis crítico de los métodos de visualización.</li>
 <li>Aplicaciones en R y Tableau.</li>
 </ul>
-<p><strong>Modalidad de cursada:</strong> modalidad on-line con encuentros sincrónicos semanales de tres horas, clases asincrónicas e interacción en el campus de la diplomatura. La materia se aprueba con la participación activa en el foro analizando los casos de uso de visualización, la presentación de un gráfico (concurso del gráfico más feo) y un trabajo final con foco en las visualizaciones utilizadas.</p>
+<p><strong>Modalidad de cursada:</strong> modalidad on-line con
+encuentros sincrónicos semanales de tres horas, clases asincrónicas e
+interacción en el campus de la diplomatura. La materia se aprueba con la
+participación activa en el foro analizando los casos de uso de
+visualización, la presentación de un gráfico (concurso del gráfico más
+feo) y un trabajo final con foco en las visualizaciones utilizadas.</p>
 <p><strong>Docentes a cargo:</strong></p>
-<p><a href="https://yabellini.netlify.app/es/">Yanina Bellini Saibene</a> y <a href="https://paocorrales.github.io/">Paola Corrales</a>. </br> </br> <img src="logo-unab-2.png" /></p>
+<p><a href="https://yabellini.netlify.app/es/">Yanina Bellini
+Saibene</a> y <a href="https://paocorrales.github.io/">Paola
+Corrales</a>. </br> </br> <img src="logo-unab-2.png" /></p>
 
 
 

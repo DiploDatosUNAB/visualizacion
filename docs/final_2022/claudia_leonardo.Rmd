@@ -1,0 +1,359 @@
+---
+title: "FINAL VISUALIZACIÓN DATOS"
+author: "Claudia Martínez Oviedo"
+date: "2022-11-23"
+output:
+  html_document:
+    code_download: true
+    toc: true
+    toc_float: true
+    theme: unite
+    code_folding: hide
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(readxl)
+library(dplyr)
+library(tidyverse)
+library(rstatix)
+library(gt)
+library(plotrix)
+library(scales)
+```
+# I-INTRODUCCIÓN
+#El trabajo final analiza una base de datos elaborada en el marco de proyecto de investigación a fin de determinar la estructura pobalcional de llamas en la Región Puna - Comunidad Aborigen de Queta - Departamento Cochinoca -Provincia de Jujuy -, donde se elaboró una planilla con características zootécnicas de llamas, en este caso particular de una tropa compuesta por 120 animales, tomando además una muestra de vellón o "Mecha".
+
+#En el presente análisis exploratorio de datos se verán relaciones, frecuencias y porcentajes de distintas variables que nos permitirán definir la estructura poblacional de la tropa analizada.
+#Así mismo, resulta importante destacar el objetivo general del relevamiento de datos que se orienta a describir no sólo una producción ganadera, sino a visibilizar la realidad de las mujeres kollas que llevan adelante su producción ancestral en zonas inhóspitas sin el acceso a servicios básicos y donde la rentabiliad del sistema se vé desde otra lógica distinta a los sistemas tradicionales de producción.
+
+#La problemática que atraviesa la fibra de llama tiene varios componentes entre los cuales se puede mencionar: 1-Complejidad en el proceso de esquila para el cual se tiene que contratar por lo menos 2 jornales de trabajo 2-Bajo precio que ofrecen las empresas/centros de acopio, de manera que muchas veces no alcanzan para cubrir los costos de esquila y traslado de la fibra a los centros urbanos más cercanos.
+#Lo que se describió con anterioridad lleva a iniciar un proceso para determinar la calidad de fibra de las tropas en distintas comunidades de la Región Puna - Provincia de Jujuy-, esto como paso inicial para poder encontrar posibles soluciones a la oferta de fibra siempre buscando mayores ingresos para los ganaderos y ganaderas kollas.
+
+https://regal-crumble-bad5c9.netlify.app
+```{r}
+knitr::include_graphics("QUETA.jpg")
+```
+# II- UBICACIÓN GEOGRÁFICA
+#Geoposicionamiento: 22º 41' 54.96"S, 65º 58' 12.36"O
+#Fecha de relevamiento: 19/09/2022
+#Cantidad de animales muestreados: 120
+#Cantidad efectiva de animales: 150
+
+# Gráfico 1: Ubicación del lugar de muestreo
+```{r}
+knitr::include_graphics("UBICACIÓN QUETA.jpg")
+```
+# III- ANÁLISIS DE LA BASE DE DATOS
+
+# Base de Datos
+```{r}
+BD_Queta <- read_excel("BD_Queta.xlsx", sheet = "BD_VATI", 
+    skip = 4)
+BD_Queta
+```
+#La base de datos cuenta 120 filas/observaiones que corresponden a los animales muestreados y 29 variables.
+
+# Composición de la tropa según Sexo del animal
+
+```{r}
+BD_VALENTINA_TINTE = BD_Queta
+BD_VALENTINA_TINTE |> 
+  group_by(Edad_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>%
+gt() %>%
+  tab_header(title = md("**Cantidad y Porcentaje de animales según edad**")) %>%
+  cols_label(Edad_r = "Edad", cantidad = "Cantidad", proporcion = "Proporción") %>%
+  fmt_number(
+    columns = c("proporcion"),
+    decimals = 2
+  ) %>%
+  tab_source_note("Nota: A (Adulto), M1 (Maltón 1 año), M2 (Maltón 2 años), V (Viejos)")
+```
+
+#Los datos muestran una adecuada cantidad de animales adultos 49,17%, un importante porcentaje de animales jóvenes de 2 años 40%, los cuales son importantes para la reposición. Así mismo, se aconseja reducir la cantidad de animales viejos para descargar el campo, sobre todo en la época de bache forrajero.
+
+# Gráfico 2: Composición de la tropa según Edad
+```{r}
+BD_VALENTINA_TINTE = BD_Queta
+BD_VALENTINA_TINTE |> 
+  group_by(Edad_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100, proporcion=round(proporcion, 2)) %>%
+ggplot() +
+  geom_col(aes(x = reorder(Edad_r,-proporcion), y = proporcion, fill = Edad_r), alpha = 0.8, position = "stack")+
+  scale_fill_manual(values=c("#a6611a","#dfc27d","#80cdc1", "#018571")) +
+  ggtitle("Composición de la tropa según Edad") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1.5), 
+                                  vjust=2.5, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Edad",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 25, 50)) + #Especificar las marcas más específicas 
+  geom_text(aes(x = Edad_r, y = proporcion,label = proporcion), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black") +
+  theme_bw()
+
+  
+```
+
+# Composición de la tropa según Sexo
+```{r}
+BD_VALENTINA_TINTE |> 
+  group_by(Sexo) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100, proporcion=round(proporcion, 2)) %>%
+gt() %>%
+  tab_header(title = md("**Frencuencia y Porcentaje de Machos, Hembras y Capones**")) %>%
+  cols_label(Sexo = "Sexo", cantidad = "Cantidad", proporcion = "Proporción") %>%
+  tab_source_note("Nota: C (Capón), H (Hembra), M (Macho)")
+
+```
+#En un primer análisis el porcentaje de hembras (82,5%) y machos (7,5%) resulta adecuado, se debe complementar el análisis relacionando los datos de edad de cada categoría.
+
+
+# Gráfico 3: Composición de la tropa según Sexo
+```{r}
+BD_VALENTINA_TINTE |> 
+  group_by(Sexo) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>%
+ggplot() +
+  geom_col(aes(x = reorder(Sexo, -proporcion), y =  proporcion, stat = "identity", fill = Sexo), alpha = 0.8) +
+   scale_fill_manual(values=c("#d01c8b","#fdae61","#b8e186")) +
+ ggtitle ("Composición de la tropa según Sexo") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Sexo",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 20, 40,60, 80)) + #Especificar las marcas más específicas 
+geom_text(aes(x = Sexo, y = proporcion,label = proporcion), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black") +
+  theme_linedraw()
+
+                                        
+   
+```
+
+# Composición de la Tropa según Sexo y Edad
+```{r}
+BD_VALENTINA_TINTE |> 
+  group_by(Sexo, Edad) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100, proporcion=round(proporcion, 2)) %>%
+gt(
+  groupname_col = "Sexo",
+  rowname_col = "Edad",
+) %>%
+  tab_header(title = md("**Frencuencia y Porcentaje de Machos, Hembras y Capones**")) %>%
+  cols_label(Sexo = "Sexo", cantidad = "Cantidad", proporcion = "Proporción") %>%
+  fmt_number(
+    columns = proporcion,
+    decimals = 1
+  )
+
+```
+#En el caso de las hembras se observa un adecuado porcentaje de reposición, es decir cantidad de animales de 2 años próximas a entrar en servicio, sin embargo se recomienda reducir la cantidad de hembras de descarte de 6 años en adelante. En el caso de los machos, existe un animal de 4 años en servicio mientras que los otros son de 1 a 2 años, se recomienda incorporar 2 machos adultos para la próxima temporada de servicio.
+
+# Gráfico 4: Composición de la tropa según Sexo y Edad
+```{r}
+BD_VALENTINA_TINTE |> 
+  group_by(Sexo, Edad) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100,  proporcion=round(proporcion, 2)) %>%
+  ggplot() +
+  geom_col(aes(x = Sexo, y = cantidad, fill = Edad), position = "dodge", color = "black", alpha = 0.8) +
+  ggtitle ("Composición de la tropa según Sexo y Edad") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Sexo",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 10, 20, 30)) + #Especificar las marcas más específicas 
+  geom_text(aes(x = Sexo, y = cantidad, label= cantidad, group = Edad),vjust = -0.3,  position = position_dodge(width = .9))
+
+ 
+```
+#Análisis de del Tipo de Mecha: en las llamas un grupo de fibras se denomina mecha, esta mecha es la muestra que se toma del animale durante en el trabajo en terreno para luego analizarla en laboratorio y puede ser: 1- Simple Capa (SC) 2-Doble Capa (DC) 3- Lustre (L)
+
+# Frecuencia y Porcentaje de Tipo de Mecha
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(TM_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporción = cantidad/sum(cantidad)*100) %>%
+  gt() %>%
+  tab_header(title =md("**Frecuencia y Porcentaje de Tipo de Mecha**")) %>%
+  cols_label(TM_r = "Tipo de Mecha", cantidad = "Cantidad", proporción = "Proporción") %>%
+  tab_source_note("Nota: DC (Doble Capa), L (Lustre), SC (Simple Capa)") %>%
+  fmt_number(
+    columns = proporción,
+    decimals = 2
+  )
+ 
+```
+
+# Gráfico 5: Frecuencia y Proporción de Tipo de Mecha
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(TM_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporción = cantidad/sum(cantidad)*100, proporción=round(proporción, 2)) %>%
+  ggplot() +
+  geom_col(aes(x = TM_r, y = proporción, fill = TM_r), color = "grey80", alpha = 0.8) +
+  scale_fill_manual(values=c("#ffeda0","#feb24c","#f03b20")) +
+  ggtitle ("Frecuencia de Tipo de Mecha") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Tipo de Mecha",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 15, 30)) + #Especificar las marcas más específicas 
+  geom_text(aes(x = TM_r, y = proporción,label = proporción, round(proporción, digits = 2)), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black") +
+  theme_replace()
+  
+  
+
+```
+#En este caso el 31,67% de los animales presenta mecha Simple Capa (SC) de mayor rendimiento para la industria, mientras que el 35,83% presentan mecha Doble Capa (DC) y el 32,5% presenta mecha tipos Lustre (L).
+
+# Frecuencia y Porcentaje de Color
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(CM_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>%
+gt() %>%
+  tab_header(title = md("**Frecuencia y Porcentaje de Color**")) %>%
+  cols_label(CM_r = "Color", cantidad = "Cantidad", proporcion = "Proporción") %>%
+    tab_source_note("Nota: CA (Camel), CR (Crudo), GF (Grafito), TE (Terra)")  %>%       
+  fmt_number(
+    columns = proporcion,
+    decimals = 2
+  )
+
+```
+#En cuanto al color se observa que el 73,33% de los animales muestreados son blancos, mientras que 13,33% presenta color beige o Cames (CA), el 10,83% de los animales son de color marrón o Terra (TE) y el 2,5% son de color negro (GF).
+
+# Gráfico 6: Proporción de Color de Fibra
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(CM_r) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporción = cantidad/sum(cantidad)*100, proporción=round(proporción, 2)) %>%
+  ggplot() +
+  geom_col(aes(x = reorder(CM_r, -proporción), y = proporción, fill = CM_r), color = "grey80", alpha = 0.8) +
+  facet_grid() +
+   scale_fill_manual(values=c("#e0ecf9","#1ebcda","#8c96c6", "#8856a1" )) +
+  theme_get() +
+  ggtitle ("Frecuencia de Color de Fibra") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Color de Fibra",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 20, 40, 60)) +  #Especificar las marcas más específicas 
+  geom_text(aes(x = CM_r, y = proporción,label = proporción, round(proporción, digits = 2)), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black")+
+  theme_bw()
+ 
+```
+
+
+# Frecuencia y Porcentaje de Finura de Fibra
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(FM) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>%
+gt() %>%
+  tab_header(title = md("**Frecuencia y Porcentaje de Finura de Fibra**")) %>%
+  cols_label(FM = "Finura Fibra", cantidad = "Cantidad", proporcion = "Proporción"
+             ) %>%
+  tab_source_note("Nota: F (Fina), G (Gruesa), M (Media), SF (Super Fina)")  %>%   
+  fmt_number(
+    columns = proporcion,
+    decimals = 2
+  ) 
+  
+```
+#De la cantidad de animales muestreados, el 47,5% presenta fibra Fina (F), el 28,33% presenta fibra Media (M), 14,18% fibra Super Fina (SF) y el 10% fibra Gruesa (G).
+
+# Gráfico 7: Porcentaje de Finura de Fibra
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(FM) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporción = cantidad/sum(cantidad)*100, proporción=round(proporción, 2)) %>%
+  ggplot() +
+  geom_col(aes(x = reorder(FM, -proporción), y = proporción, fill = FM), color = "grey80", position = "stack", alpha = 0.8) +
+  facet_grid() +
+   scale_fill_manual(values=c("#132f49","#56b87f", "#56b90f","#132f21" )) +
+  theme_linedraw() +
+  ggtitle ("Frecuencia de Finura de Fibra") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Color de Fibra",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 15, 30, 45)) +  #Especificar las marcas más específicas 
+  geom_text(aes(x = FM, y = proporción,label = proporción, round(proporción, digits = 2)), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black")
+ 
+```
+
+# Frecuencia y Porcentaje de Morfotipo
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(Morfotipo) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100) %>%
+gt() %>%
+  tab_header(title = md("**Frecuencia y Porcentaje de Morfotipo**")) %>%
+  cols_label(Morfotipo = "Morfotipo", cantidad = "Cantidad", proporcion = "Proporción"
+             ) %>%
+  tab_source_note("Nota: C (Calzado), I (Intermedio), L (Lanudo)")  %>%   
+  fmt_number(
+    columns = proporcion,
+    decimals = 2
+  ) 
+```
+#El Morfotipo corresponde al grado de cobertura de fibra en el animal.En este caso en la tropa predominan los animales Calzados (C) con un 63,33% y los animales Lanudos (L) con un 31,67%, mientras que sólo el 5% presenta morfotipo Intermedio.
+
+# Gráfico 8: Frecuencia y Porcentaje de Morfotipo 
+```{r}
+BD_VALENTINA_TINTE |>
+  group_by(Morfotipo) |> 
+  summarise(cantidad = n()) |> 
+  mutate(proporcion = cantidad/sum(cantidad)*100, proporcion=round(proporcion, 2 )) %>%
+  ggplot() +
+  geom_col(aes(x = reorder(Morfotipo, -proporcion), y = proporcion, fill = Morfotipo), color = "grey80", alpha = 0.8) +
+  facet_grid() +
+   scale_fill_manual(values=c("#f0f9e8","#7bccc4", "#2b8cbe"))+
+  ggtitle ("Frecuencia de Morfotipo") +
+  theme (plot.title = element_text(family="Arial",
+                                  size=rel(1), 
+                                  vjust=3, 
+                                  face="bold",
+                                  color="Black", #Color del texto
+                                  lineheight=4)) +
+    labs(x = "Morfotipo",y = "Porcentaje (%)") +
+  scale_y_continuous(breaks=c(0, 30, 45, 60)) +
+    geom_text(aes(x = Morfotipo, y = proporcion,label = proporcion, round(proporcion, digits = 2)), position =position_stack(), size=4, vjust=2, hjust=0.5, col="black")
+ 
+```
+ 
+#En la tropa predominan los animales Calzados (C) con un 63,33% y los animales Lanudos (L) con un 31,67%.
+
+
